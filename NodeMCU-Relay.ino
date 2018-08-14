@@ -1,7 +1,9 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
 
-// Type = All
+// GitHub Page = https://github.com/Tommrodrigues/homebridge-nodemcu-relay
+
+// Script Type = Relay Momentary, Switch, Modulation
 
 // D4 = LOW activation
 // D7 = HIGH activation
