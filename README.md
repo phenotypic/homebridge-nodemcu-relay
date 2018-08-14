@@ -32,7 +32,7 @@ The following is the process used to flash a NodeMCU with the Arduino IDE. Steps
 3. In the Preferences pane, under "Additional Board Manager URLs", enter the following link:
 http://arduino.esp8266.com/versions/2.4.2/package_esp8266com_index.json
 
-4. Go to the "Tools" window and select "Board Manager". Search for "ESP8266" and click on install.
+4. Go to the "Tools" window and select "Board Manager". Search for `ESP8266` and click on install.
 
 5. Ensure to download the USB to UART drivers for your operating system from [this](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers) link in order to be able to flash our NodeMCU.
 
@@ -107,7 +107,7 @@ sudo npm install -g homebridge-http
 
 As you can see from the `config.json` example above, the basic format of the HTTP request is `http://nodemcu.local:80/` followed by the action you wish to execute. 
 
-Here is a table which shows you the available relay actions included with the `NodeMCU-Relay.ino` script in this repository:
+Here is a table which shows you the available relay actions included with the `NodeMCU-Relay.ino` script in this repository which can be included in the `config.json` to control different types of applicances:
 
 | Name | Full URLs | Description | Example Uses |
 | --- | --- | --- | --- |
