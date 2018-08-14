@@ -19,7 +19,7 @@ homebridge-nodemcu-relay provides an Arduino script designed to be flashed onto 
 
 * Micro-USB cable (for flashing and power)
 
-* A method for flashing the NodeMCU with Arduino scripts (NodeMCU method described [below](#how-to)
+* A method for flashing the NodeMCU with Arduino scripts (NodeMCU method described [below](#how-to))
 
 ## How-to
 
