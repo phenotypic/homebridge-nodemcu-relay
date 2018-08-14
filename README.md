@@ -7,13 +7,13 @@ homebridge-nodemcu-relay allows for the cheap and easy for the control of the re
 
 ## How does it work?
 
-homebridge-nodemcu-relay provides an Arduino script deisnged to be flashed onto a NodeMCU. After successful flashing, you will be able to quickly and simply integrate it into your pre-existing homebridge setup with the use of an http plugin such as [homebridge-http](https://github.com/rudders/homebridge-http).
+homebridge-nodemcu-relay provides an Arduino script designed to be flashed onto a NodeMCU. After successful flashing, you will be able to quickly and simply integrate it into your pre-existing homebridge setup with the use of an http plugin such as [homebridge-http](https://github.com/rudders/homebridge-http).
 
-## Requirments
+## Requirements
 
 * [NodeMCU](https://en.wikipedia.org/wiki/NodeMCU) (Or another [ESP-8266](https://en.wikipedia.org/wiki/ESP8266) based board)
 
-* 3v Relay
+* 3v Relay Module
 
 * [Pin Header Cables](https://learn.sparkfun.com/tutorials/connector-basics/pin-header-connectors)
 
@@ -96,7 +96,7 @@ sudo npm install -g homebridge-http
 }
 ```
 
-15. And that's it! The `config.json` example above will simply turn the relay either on or off depending on what you request. If you want to do some other sort of action with the relay such as a simple momentary puls, read the [Available Features](#available-features) section below.
+15. And that's it! The `config.json` example above will simply turn the relay either on or off depending on what you request. If you want to do some other sort of action with the relay such as a simple momentary pulse, read the [Available Features](#available-features) section below.
 
 ## Wiring
 
@@ -107,7 +107,7 @@ sudo npm install -g homebridge-http
 
 As you can see from the `config.json` example above, the basic format of the HTTP request is `http://nodemcu.local:80/` followed by the action you wish to execute. 
 
-Here is a table which shows you the available relay actions included with the `NodeMCU-Relay.ino` script in this repository which can be included in the `config.json` to control different types of applicances:
+Here is a table which shows you the available relay actions included with the `NodeMCU-Relay.ino` script in this repository which can be included in the `config.json` to control different types of appliances:
 
 | Name | Full URLs | Description | Example Uses |
 | --- | --- | --- | --- |
