@@ -15,7 +15,7 @@ homebridge-nodemcu-relay provides an Arduino script designed to be flashed onto 
 
 * 3v Relay Module
 
-* [Pin Header Cables](https://learn.sparkfun.com/tutorials/connector-basics/pin-header-connectors)
+* [Pin Header Cables](https://learn.sparkfun.com/tutorials/connector-basics/pin-header-connectors) (To connect the NodeMCU to the relay module)
 
 * Micro-USB cable (for flashing and power)
 
