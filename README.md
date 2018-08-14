@@ -11,7 +11,7 @@ homebridge-nodemcu-relay provides an Arduino script designed to be flashed onto 
 
 ## Requirements
 
-* [NodeMCU](https://en.wikipedia.org/wiki/NodeMCU) (Or another [ESP-8266](https://en.wikipedia.org/wiki/ESP8266) based board)
+* [NodeMCU](https://en.wikipedia.org/wiki/NodeMCU) (Or another [ESP8266](https://en.wikipedia.org/wiki/ESP8266) based board)
 
 * 3v Relay Module
 
@@ -19,7 +19,7 @@ homebridge-nodemcu-relay provides an Arduino script designed to be flashed onto 
 
 * Micro-USB cable (for flashing and power)
 
-* A method for flashing the NodeMCU with Arduino scripts (NodeMCU method described below)
+* A method for flashing the NodeMCU with Arduino scripts (NodeMCU method described [below](#how-to)
 
 ## How-to
 
