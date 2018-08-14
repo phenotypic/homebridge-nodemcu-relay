@@ -122,6 +122,10 @@ It is also worth noting that the script provides a web interface available at ei
 
 ## Other features
 
+#### Integrating with a "command" plugin
+
 Whilst the `NodeMCU-Relay.ino` script was designed to be interacted with by an http plugin, it is possible to control the NodeMCU from a "command" type plugin such as [homebridge-garagedoor-command](https://github.com/apexad/homebridge-garagedoor-command) by using `curl http://nodemcu.local:80/ACTION` where the on/off command is meant to go.
 
-Whilst it is recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility; if you _do_ wish to only flash the NodeMCU with a specific action (i.e. Switch, Modulation or Momentary), you can find these individual scripts in the "Other Scripts" folder in this repository.
+#### Using a specific action type
+
+Whilst it is highly recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility due to the fact that it contains all of the action types; if you _do_ wish to only flash the NodeMCU with a specific action (i.e. Switch, Modulation or Momentary), you can find these individual scripts located in the "Other Scripts" folder in this repository.
