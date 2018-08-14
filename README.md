@@ -40,9 +40,9 @@ http://arduino.esp8266.com/versions/2.4.2/package_esp8266com_index.json
 
 7. Select NodeMCU from "Tools" then "Boards".
 
-8. Now, copy and paste the contents of the `NodeMCU-Relay.ino` script we downloaded earlier into the Arduino IDE window.
+8. Now, copy and paste the contents of the `NodeMCU-Relay.ino` script we downloaded from this repository earlier into the Arduino IDE window.
 
-9. Make sure to change the variables where told to do so. Below is an example:
+9. Make sure to change the variables where asked to do so. The variables you can change are surrounded by slashes (`/`) to ensure that they stand out and to help avoid you acciddentaly changing other parts of the script. Below is an example:
 
 ```
 /////////////////// CHANGE THESE VALUES //////////////////////
@@ -111,6 +111,6 @@ Here is a table which shows you the available relay actions included with the `N
 
 | Name | Full URLs | Description | Example Uses |
 | --- | --- | --- | --- |
-| Switch | `http://nodemcu.local:80/SWITCH=ON` `http://nodemcu.local:80/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app | Lights, faucets and fans etc. |
+| Switch | `http://nodemcu.local:80/SWITCH=ON` `http://nodemcu.local:80/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, faucets and fans etc. |
 | Momentary | `http://nodemcu.local:80/MOMENTARY=ON` `http://nodemcu.local:80/MOMENTARY=OFF` | Will activate the relay for a brief moment then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | Garages, gates and buzzers etc. |
 | Modulation | `http://nodemcu.local:80/MODULATION=ON` `http://nodemcu.local:80/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights and sprinkler systems etc. |
