@@ -100,6 +100,8 @@ sudo npm install -g homebridge-http
 
 ## Wiring
 
+Depending on which relay module you have, it will either be a `HIGH` activation relay or a `LOW` activation relay. The `NodeMCU-Relay.ino` script accommodates for both, providing two seperate pins depending on which type of relay ou have, follow the correct wiring diagram for you below:
+
 ![Diagram](https://image.ibb.co/gSrmRU/Wiring_Relay_Diagram.jpg)
 
 
@@ -114,3 +116,12 @@ Here is a table which shows you the available relay actions included with the `N
 | Switch | `http://nodemcu.local:80/SWITCH=ON` `http://nodemcu.local:80/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, faucets and fans etc. |
 | Momentary | `http://nodemcu.local:80/MOMENTARY=ON` `http://nodemcu.local:80/MOMENTARY=OFF` | Will activate the relay for a brief moment then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | Garages, gates and buzzers etc. |
 | Modulation | `http://nodemcu.local:80/MODULATION=ON` `http://nodemcu.local:80/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights and sprinkler systems etc. |
+
+It is also worth noting that the script provides a web interface available at either `nodemcu.local` or the IP address of your NodeMCU. From the (very basic) web interface, you can control any of the features included in the script. However, it is importatnt to know that using the web interface to control the NodeMCU will NOT update the state in the Home app but can be useful if you have people in your home who do not have an Apple device.
+
+
+## Other features
+
+Whilst the `NodeMCU-Relay.ino` script was designed to be interacted with by an http plugin, it is possible to control the NodeMCU from a "command" type plugin such as [homebridge-garagedoor-command](https://github.com/apexad/homebridge-garagedoor-command) by using `curl http://nodemcu.local:80/ACTION` where the on/off command is meant to go.
+
+Whilst it is recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility; if you _do_ wish to only flash the NodeMCU with a specific action (i.e. Switch, Modulation or Momentary), you can find these individual scripts in the "Other Scripts" folder in this repository.
