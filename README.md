@@ -100,7 +100,7 @@ sudo npm install -g homebridge-http
 
 ## Wiring
 
-
+![Diagram](https://image.ibb.co/gSrmRU/Wiring_Relay_Diagram.jpg)
 
 
 ## Available Features
