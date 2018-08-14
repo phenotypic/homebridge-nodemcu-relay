@@ -84,7 +84,7 @@ sudo npm install -g homebridge-http
     "accessories": [
         {
           "accessory": "Http",
-          "name": "Misters",
+          "name": "Lights",
           "on_url": "http://nodemcu.local:80/SWITCH=ON",
           "off_url": "http://nodemcu.local:80/SWITCH=OFF",
           "http_method": "GET"
