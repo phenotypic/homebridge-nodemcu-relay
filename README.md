@@ -128,7 +128,7 @@ Whilst the `NodeMCU-Relay.ino` script was designed to be interacted with by an h
 ```
 curl http://nodemcu.local:80/ACTION
 ```
-where `ACTION` is the action you wish to perform.
+Where `ACTION` is the action you wish to perform (e.g. `SWITCH=ON`).
 
 #### Using a specific action type
 
