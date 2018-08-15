@@ -124,7 +124,11 @@ It is also worth noting that the script provides a web interface available at ei
 
 #### Integrating with a "command" plugin
 
-Whilst the `NodeMCU-Relay.ino` script was designed to be interacted with by an http plugin; it _is_ possible to control the NodeMCU from a "command" type plugin such as [homebridge-garagedoor-command](https://github.com/apexad/homebridge-garagedoor-command) by using `curl http://nodemcu.local:80/ACTION` where `ACTION` is the action you wish to perform.
+Whilst the `NodeMCU-Relay.ino` script was designed to be interacted with by an http plugin; it _is_ possible to control the NodeMCU from a "command" type plugin such as [homebridge-garagedoor-command](https://github.com/apexad/homebridge-garagedoor-command) by using:
+```
+curl http://nodemcu.local:80/ACTION
+```
+where `ACTION` is the action you wish to perform.
 
 #### Using a specific action type
 
