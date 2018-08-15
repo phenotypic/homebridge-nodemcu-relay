@@ -3,7 +3,7 @@
 
 ## What is it?
 
-homebridge-nodemcu-relay allows for the cheap and easy for the control of the relay via [homebridge](https://github.com/nfarina/homebridge), opening a wide variety of use cases including simple Gate/Garage control, sprinkler control, lights on/off and far more.
+homebridge-nodemcu-relay allows for the cheap and easy control of a relay via [homebridge](https://github.com/nfarina/homebridge); opening a wide variety of use-cases including Gate/Garage openers, sprinkler control, lights on/off and far more.
 
 ## How does it work?
 
