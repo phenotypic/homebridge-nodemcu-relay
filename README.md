@@ -96,7 +96,7 @@ sudo npm install -g homebridge-http
 }
 ```
 
-15. And that's it! The `config.json` example above will simply turn the relay either on or off depending on what you request. If you want to do some other sort of action with the relay such as a simple momentary pulse, read the [Available Features](#available-features) section below.
+15. And that's it! The `config.json` example above will simply turn the relay either on or off depending on what you request due to the fact that `SWITCH` is listed as the action. If you want to do some other sort of action with the relay such as a momentary pulse, read the [Available Features](#available-features) section below.
 
 ## Wiring
 
