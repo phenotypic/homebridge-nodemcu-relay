@@ -132,6 +132,6 @@ curl http://nodemcu.local:80/ACTION
 ```
 Where `ACTION` is the action you wish to perform (e.g. `SWITCH=ON`).
 
-#### Using a specific action type
+#### Using only one action type
 
-Whilst it is highly recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility due to the fact that it contains all of the action types; if you _do_ wish to only flash the NodeMCU with a specific action (i.e. Switch, Modulation or Momentary), you can find these individual scripts located in the "Other Scripts" folder in this repository.
+Whilst it is **highly** recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility due to the fact that it contains all of the action types; if you _do_ wish to only flash the NodeMCU with a specific action (i.e. Switch, Modulation or Momentary), you can find these individual scripts located in the "Other Scripts" folder in this repository. Note that if you use one of these scripts, you will not be able to utilise any of the other [available features](#available-features) apart from the one you have explicitly flashed onto the board.
