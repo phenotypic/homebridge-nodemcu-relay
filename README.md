@@ -64,7 +64,7 @@ const int delayTimeOff = 1000; //Delay time for the off state for MOMENTARY (ms)
 
 12. At this point, we have finished configuring the NodeMCU and can focus on setting up homebridge to be able to communicate with the NodeMCU. It is important to note that the NodeMCU should be available as `nodemcu.local` on your network. However, if you want to find its IP address, you can either `ping nodemcu.local` or use the Serial Output feature in the Arduino IDE when the NodeMCU is booting up and plugged into your computer.
 
-13. Assuming that you already have [homebridge](https://github.com/nfarina/homebridge#installation) already setup, the next thing you will have to do is install the http plugin you wish to use. For [homebridge-http](https://github.com/rudders/homebridge-http), use the command:
+13. Assuming that you already have [homebridge](https://github.com/nfarina/homebridge#installation) already set up, the next thing you will have to do is install the http plugin you wish to use. It is recommended that you use [homebridge-http](https://github.com/rudders/homebridge-http) due to its stability and wide usage. To install [homebridge-http](https://github.com/rudders/homebridge-http), use the command:
 ```
 sudo npm install -g homebridge-http
 ```
