@@ -9,15 +9,15 @@
     "description": "This example config file makes use of the homebridge-http-switch plugin: https://github.com/Supereg/homebridge-http-switch",
 
     "accessories": [
-    		{
-		      "accessory": "HTTP-SWITCH",
-		      "name": "Switch",
-		      "switchType": "stateful",
-		      "onUrl": "http://nodemcu.local:80/SWITCH=ON",
-		      "offUrl": "http://nodemcu.local:80/SWITCH=OFF",
-		      "statusUrl": "http://nodemcu.local:80",
-					"pullInterval": 5000
-		    }
+        {
+          "accessory": "HTTP-SWITCH",
+          "name": "Switch",
+	  "switchType": "stateful",
+          "onUrl": "http://nodemcu.local:80/SWITCH=ON",
+          "offUrl": "http://nodemcu.local:80/SWITCH=OFF",
+          "statusUrl": "http://nodemcu.local:80",
+          "pullInterval": 5000
+        }
     ],
 
     "platforms": [
