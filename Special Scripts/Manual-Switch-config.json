@@ -5,7 +5,8 @@
         "port": 51826,
         "pin": "031-45-154"
     },
-   
+	
+    "description": "This example config file makes use of the homebridge-http-switch plugin: https://github.com/Supereg/homebridge-http-switch",
 
     "accessories": [
     		{
