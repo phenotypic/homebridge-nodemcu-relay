@@ -44,7 +44,7 @@ http://arduino.esp8266.com/versions/2.4.2/package_esp8266com_index.json
 
 9. Make sure to change the variables where asked to do so. The variables you can change are surrounded by slashes (`/`) to ensure that they stand out and to help avoid you acciddentaly changing other parts of the script. Below is an example:
 
-```
+```C
 /////////////////// CHANGE THESE VALUES //////////////////////
 // Required:
 const char* ssid = "MyWifi"; //Name of your network
@@ -71,7 +71,7 @@ sudo npm install -g homebridge-http
 
 14. Below is the example `config.json` file which assumes that you want to use [homebridge-http](https://github.com/rudders/homebridge-http) to communicate with your NodeMCU and that you want to use the switch [feature](#available-features):
 
-```
+```json
 {
     "bridge": {
         "name": "Homebridge",
