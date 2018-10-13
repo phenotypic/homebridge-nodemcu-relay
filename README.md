@@ -85,8 +85,8 @@ sudo npm install -g homebridge-http
         {
           "accessory": "Http",
           "name": "Lights",
-          "on_url": "http://nodemcu.local:80/SWITCH=ON",
-          "off_url": "http://nodemcu.local:80/SWITCH=OFF",
+          "on_url": "http://nodemcu.local/SWITCH=ON",
+          "off_url": "http://nodemcu.local/SWITCH=OFF",
           "http_method": "GET"
         }
     ],
@@ -107,15 +107,15 @@ Depending on which relay module you have, it will either be a `HIGH` activation 
 
 ## Available Features
 
-As you can see from the `config.json` example above, the basic format of the HTTP request is `http://nodemcu.local:80/` followed by the action you wish to execute. 
+As you can see from the `config.json` example above, the basic format of the HTTP request is `http://nodemcu.local/` followed by the action you wish to execute. 
 
 Here is a table which shows you the available relay actions included with the `NodeMCU-Relay.ino` script in this repository which can be included in the `config.json` to control different types of appliances:
 
 | Name | Full URLs | Description | Example Uses |
 | --- | --- | --- | --- |
-| Switch | `http://nodemcu.local:80/SWITCH=ON` `http://nodemcu.local:80/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, faucets and fans etc. |
-| Momentary | `http://nodemcu.local:80/MOMENTARY=ON` `http://nodemcu.local:80/MOMENTARY=OFF` | Will activate the relay for a brief moment then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | Garages, gates and buzzers etc. |
-| Modulation | `http://nodemcu.local:80/MODULATION=ON` `http://nodemcu.local:80/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights and sprinkler systems etc. |
+| Switch | `http://nodemcu.local/SWITCH=ON` `http://nodemcu.local/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, faucets and fans etc. |
+| Momentary | `http://nodemcu.local/MOMENTARY=ON` `http://nodemcu.local/MOMENTARY=OFF` | Will activate the relay for a brief moment then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | Garages, gates and buzzers etc. |
+| Modulation | `http://nodemcu.local/MODULATION=ON` `http://nodemcu.local/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights and sprinkler systems etc. |
 
 #### Web Interface
 
@@ -128,7 +128,7 @@ It is also worth noting that the script provides a web interface available at ei
 
 Whilst the `NodeMCU-Relay.ino` script was designed to be interacted with by an http plugin; it _is_ possible to control the NodeMCU from a "command" type plugin such as [homebridge-garagedoor-command](https://github.com/apexad/homebridge-garagedoor-command) by using:
 ```
-curl http://nodemcu.local:80/ACTION
+curl http://nodemcu.local/ACTION
 ```
 Where `ACTION` is the action you wish to perform (e.g. `SWITCH=ON`).
 
