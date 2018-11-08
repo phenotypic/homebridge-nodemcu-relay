@@ -1,5 +1,5 @@
 # homebridge-nodemcu-relay
-#### A simple yet efficient way to integrate a homebridge-controlled relay into your home.
+#### Easily integrate a homebridge-controlled relay into your home
 
 ## What is it?
 
