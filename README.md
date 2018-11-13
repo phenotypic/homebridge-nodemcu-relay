@@ -57,26 +57,26 @@ sudo npm install -g homebridge-http
 }
 ```
 
-4. And that's it! The `config.json` example above will simply turn the relay either on or off depending on what you request due to the fact that `SWITCH` is listed as the action. If you want to do some other sort of action with the relay such as a momentary pulse, read the [Available Features](#available-features) section below.
+4. And that's it! The `config.json` example above will simply turn the relay either on or off depending on what you request due to the fact that `SWITCH` is listed as the action. If you want to do another action with the relay like a momentary pulse, read the [Available Features](#available-features) section below.
 
 ## Wiring
 
-Depending on which relay module you have, it will either be a `HIGH` activation relay or a `LOW` activation relay. The `NodeMCU-Relay.ino` script accommodates for both, providing two seperate pins depending on which type of relay ou have, follow the correct wiring diagram for you below:
+Depending on which relay module you have, it will either be a `HIGH` activation relay or a `LOW` activation relay. The `NodeMCU-Relay.ino` script accommodates for both, providing two seperate pins depending on which type of relay you have:
 
 ![Diagram](https://image.ibb.co/gSrmRU/Wiring_Relay_Diagram.jpg)
 
 
 ## Available Features
 
-As you can see from the `config.json` example above, the basic format of the HTTP request is `http://nodemcu.local/` followed by the action you wish to execute. 
+As you can see from the `config.json` example above, the basic format of the HTTP request is the IP address of your NodeMCU (`nodemcu.local`), followed by the action you wish to execute. 
 
 Here is a table which shows you the available relay actions included with the `NodeMCU-Relay.ino` script in this repository which can be included in the `config.json` to control different types of appliances:
 
 | Name | Full URLs | Description | Example Uses |
 | --- | --- | --- | --- |
-| Switch | `http://nodemcu.local/SWITCH=ON` `http://nodemcu.local/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, faucets and fans etc. |
-| Momentary | `http://nodemcu.local/MOMENTARY=ON` `http://nodemcu.local/MOMENTARY=OFF` | Will activate the relay for a brief moment then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | Garages, gates and buzzers etc. |
-| Modulation | `http://nodemcu.local/MODULATION=ON` `http://nodemcu.local/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights and sprinkler systems etc. |
+| Switch | `http://nodemcu.local/SWITCH=ON` `http://nodemcu.local/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, Faucets, Fans |
+| Momentary | `http://nodemcu.local/MOMENTARY=ON` `http://nodemcu.local/MOMENTARY=OFF` | Will activate the relay for a brief moment then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | Garages, Gates, Buzzers |
+| Modulation | `http://nodemcu.local/MODULATION=ON` `http://nodemcu.local/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights, Sprinkler systems |
 
 #### Web Interface
 
@@ -85,14 +85,16 @@ It is also worth noting that the script provides a web interface available at ei
 
 ## Other features
 
-#### Integrating with a "command" plugin
+### Integrating with a 'command' plugin
 
 Whilst the `NodeMCU-Relay.ino` script was designed to be interacted with by an http plugin; it _is_ possible to control the NodeMCU from a "command" type plugin such as [homebridge-garagedoor-command](https://github.com/apexad/homebridge-garagedoor-command) by using:
 ```
 curl http://nodemcu.local/ACTION
 ```
-Where `ACTION` is the action you wish to perform (e.g. `SWITCH=ON`).
+Where `ACTION` is the action you wish to perform (e.g. `MOMENTARY=ON`).
 
-#### Using only one action type
+### Alternative scripts
 
-Whilst it is **highly** recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility due to the fact that it contains all of the action types; if you _do_ wish to only flash the NodeMCU with a specific action (i.e. Switch, Modulation or Momentary), you can find these individual scripts located in the "Other Scripts" folder in this repository. Note that if you use one of these scripts, you will not be able to utilise any of the other [available features](#available-features) apart from the one you have explicitly flashed onto the board.
+Whilst it is **highly** recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility due to the fact that it contains all of the action types; if you _do_ wish to only flash the NodeMCU with a specific action (i.e. Switch, Modulation or Momentary), you can find these individual scripts located in the `Other Scripts` folder in this repository. 
+
+You can also find some more specialiased scripts in the `Special Scripts` folder. There, you can currently find a script designed specifically for more secure applications like Garage Door openers. There is also a script which can be used to automate pre-existing light switches in your home located in the folder
