@@ -220,8 +220,10 @@ void loop() {
   client.println("<br><br>");
   client.println("<a href=\"/MODULATION=ON\"\"><button>Modulation On </button></a>");
   client.println("<a href=\"/MODULATION=OFF\"\"><button>Modulation Off </button></a>");
+  
   client.println("<a href=\"/MOMENTARY=ON\"\"><button>Momentary On </button></a>");
   client.println("<a href=\"/MOMENTARY=OFF\"\"><button>Momentary Off </button></a>");
+  
   client.println("<a href=\"/SWITCH=ON\"\"><button>Switch On </button></a>");
   client.println("<a href=\"/SWITCH=OFF\"\"><button>Switch Off </button></a><br />");
   client.println("</html>");
