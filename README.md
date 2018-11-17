@@ -63,7 +63,7 @@ sudo npm install -g homebridge-http
 
 Depending on which relay module you have, it will either be a `HIGH` activation relay or a `LOW` activation relay. The `NodeMCU-Relay.ino` script accommodates for both, providing two seperate pins depending on which type of relay you have:
 
-![Diagram](https://image.ibb.co/gSrmRU/Wiring_Relay_Diagram.jpg)
+![Diagram](https://image.ibb.co/hEDhFL/Wiring-Relay-Diagram.jpg)
 
 
 ## Available Features
@@ -77,7 +77,7 @@ Here is a table which shows you the available relay actions included with the `N
 | Switch | `http://nodemcu.local/SWITCH=ON` `http://nodemcu.local/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, Faucets, Fans |
 | Momentary | `http://nodemcu.local/MOMENTARY=ON` `http://nodemcu.local/MOMENTARY=OFF` | Will activate the relay for a brief moment then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | Garages, Gates, Buzzers |
 | Modulation | `http://nodemcu.local/MODULATION=ON` `http://nodemcu.local/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights, Sprinkler systems |
-| State | `http://nodemcu.local/STATE` | Will return either `1` or `0` depending on the relay's current state | N/A |
+| State | `http://nodemcu.local/STATE` | Will return either `1` (On) or `0` (Off) depending on the relay's current state | N/A |
 
 #### Web Interface
 
