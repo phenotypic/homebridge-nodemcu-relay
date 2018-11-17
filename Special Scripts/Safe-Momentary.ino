@@ -10,9 +10,12 @@
 /////////////////// CHANGE THESE VALUES //////////////////////
 const char* ssid = "SSID"; //Name of your network
 const char* password = "PASSWORD"; //Password for your network
-const char* key = "/SECRETKEY"; //The specific HTTP request which will activate the relay (KEEP THE "/"!)
+const char* onKey = "/ONkey"; //e.g. "/2148320" or "/IOHEWohVuw"
+const char* offKey = "/OFFkey"; //e.g. "/9329812" or "/ewjiVLEfeN"
 const int delayTimeOn = 1000; //Delay time for the on state (ms)
 //////////////////////////////////////////////////////////////
+
+int value = LOW;
 
 const int highPin = 13; //Declares "highPin" being pin 13 (D7) on NodeMCU
 const int lowPin = 2; //Declaers "lowPin" being pin 2 (D4) on NodeMCU
@@ -81,25 +84,36 @@ void loop() {
 
   // Match the request
 
-  int value = LOW;
-  if (request.indexOf(key) != -1)  {
+  client.println("HTTP/1.1 200 OK");
+  client.println("Content-Type: text/html");
+  client.println("");
+
+  if (request.indexOf(onKey) != -1)  {
     digitalWrite(lowPin, LOW);
     digitalWrite(highPin, HIGH);
     delay(delayTimeOn);
     digitalWrite(highPin, LOW);
     digitalWrite(lowPin, HIGH);
     value = HIGH;
+    client.print("Done");
   }
 
-  // Return the response
-  client.println("HTTP/1.1 200 OK");
-  client.println("Content-Type: text/html");
-  client.println("");
-
-  if(value == HIGH) {
+  if (request.indexOf(offKey) != -1)  {
+    digitalWrite(lowPin, LOW);
+    digitalWrite(highPin, HIGH);
+    delay(delayTimeOn);
+    digitalWrite(highPin, LOW);
+    digitalWrite(lowPin, HIGH);
+    value = LOW;
     client.print("Done");
-  } else {
-    client.print("Empty");
+  }
+
+  if (request.indexOf("/STATE") != -1)  {
+    if(value == HIGH) {
+      client.print("1");
+    } else {
+      client.print("0");
+    }
   }
 
   delay(1);
