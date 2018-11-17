@@ -20,9 +20,9 @@ const int delayTimeOn = 1000; //Delay time for the on state for MOMENTARY (ms)
 const int delayTimeOff = 1000; //Delay time for the off state for MOMENTARY (ms)
 //////////////////////////////////////////////////////////////
 
-bool led_blinking;
-bool led_on;
-bool ignoreMe;
+int value = LOW;
+
+bool led_blinking, led_on, ignoreMe;
 uint32_t last_toggle;
 
 const int highPin = 13; //Declares "highPin" being pin 13 (D7) on NodeMCU
@@ -46,6 +46,7 @@ void setup() {
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
+
 
   WiFi.softAPdisconnect(true);
   WiFi.begin(ssid, password);
@@ -76,10 +77,9 @@ void setup() {
   digitalWrite(redPin, HIGH);
 
   ignoreMe = false;
-
 }
 
-//START OF MODULATION FUNCTIONS
+//Start of modulation functions
 void update_led() {
   uint32_t now = millis();
     if (!led_blinking && !ignoreMe) {
@@ -117,12 +117,12 @@ void stop_blinking() {
     led_blinking = false;
     led_on = false;
 }
-//END OF MODULATION FUNCTIONS
+//End of modulation functions
 
 //Main loop
 void loop() {
 
-    update_led();
+  update_led();
 
   // Check if a client has connected
   WiFiClient client = server.available();
@@ -142,7 +142,7 @@ void loop() {
   client.flush();
 
   // Match the request
-int value = LOW;
+
     if (request.indexOf("/MODULATION=ON") != -1)  {
        ignoreMe = false;
        start_blinking();
@@ -184,11 +184,26 @@ int value = LOW;
       stop_blinking();
       digitalWrite(highPin, LOW);
       digitalWrite(lowPin, HIGH);
+      value = LOW;
       ignoreMe = false;
     }
+    if (request.indexOf("/STATE") != -1)  {
+      client.println("HTTP/1.1 200 OK");
+      client.println("Content-Type: text/html");
+      client.println("");
+      if(value == HIGH) {
+        client.print("1");
+      } else {
+        client.print("0");
+      }
+      delay(1);
+      Serial.println("Client disonnected");
+      Serial.println("");
+      return;
+    }
 
-
-  // Return the response
+  // REMOVE EVERYTHING BELOW (UNTIL "END") IF YOU DONT WANT AN ONLINE INTERFACE
+  // --------------------------------------------------------------------------
   client.println("HTTP/1.1 200 OK");
   client.println("Content-Type: text/html");
   client.println("");
@@ -214,5 +229,6 @@ int value = LOW;
   delay(1);
   Serial.println("Client disonnected");
   Serial.println("");
-
+  // END
+  // --------------------------------------------------------------------------
 }
