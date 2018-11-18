@@ -11,9 +11,9 @@ homebridge-nodemcu-relay provides an Arduino script designed to be flashed onto 
 
 ## Requirements
 
-* [NodeMCU](https://en.wikipedia.org/wiki/NodeMCU) (Or another [ESP8266](https://en.wikipedia.org/wiki/ESP8266) based board)
+* [NodeMCU](https://en.wikipedia.org/wiki/NodeMCU)
 
-* 3v Relay Module
+* 3V Relay Module
 
 * [Pin Header Cables](https://learn.sparkfun.com/tutorials/connector-basics/pin-header-connectors) (To connect the NodeMCU to the relay module)
 
@@ -30,7 +30,7 @@ homebridge-nodemcu-relay provides an Arduino script designed to be flashed onto 
 sudo npm install -g homebridge-http
 ```
 
-3. Below is the example `config.json` file which assumes that you want to use [homebridge-http](https://github.com/rudders/homebridge-http) to communicate with your NodeMCU and that you want to use the `SWITCH` [feature](#available-features):
+3. Below is the example `config.json` file which assumes that you want to use [homebridge-http](https://github.com/rudders/homebridge-http) to communicate with your NodeMCU, and that you want to use the `SWITCH` [feature](#available-features):
 
 ```json
 {
@@ -75,7 +75,7 @@ Here is a table which shows you the available relay actions included with the `N
 | Name | Full URLs | Description | Example Uses |
 | --- | --- | --- | --- |
 | Switch | `http://nodemcu.local/SWITCH=ON` `http://nodemcu.local/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, Faucets, Fans |
-| Momentary | `http://nodemcu.local/MOMENTARY=ON` `http://nodemcu.local/MOMENTARY=OFF` | Will activate the relay for a brief moment then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | Garages, Gates, Buzzers |
+| Momentary | `http://nodemcu.local/MOMENTARY=ON` `http://nodemcu.local/MOMENTARY=OFF` | Will activate the relay for a brief moment then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | [Garages, Gates](#alternative-scripts), Buzzers |
 | Modulation | `http://nodemcu.local/MODULATION=ON` `http://nodemcu.local/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights, Sprinkler systems |
 | State | `http://nodemcu.local/STATE` | Will return either `1` (On) or `0` (Off) depending on the relay's current state | N/A |
 
@@ -85,6 +85,12 @@ It is also worth noting that the script provides a web interface available at ei
 
 
 ## Other features
+
+### Alternative scripts
+
+Whilst it is **highly** recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility due to the fact that it contains all of the action types; you can also find some more specialiased scripts in the `Special Scripts` folder. There, you can find a script designed specifically for more secure applications like Garage Door openers. There is also a script which can be used to automate pre-existing light switches in your home.
+
+Furthermore, if you _do_ wish to only flash the NodeMCU with a specific action (i.e. Switch, Modulation or Momentary), you can find these individual scripts located in the `Other Scripts` folder in this repository. 
 
 ### Integrating with a 'command' plugin
 
@@ -97,9 +103,3 @@ Where `ACTION` is the action you wish to perform (e.g. `MOMENTARY=ON`).
 ### Using the STATE feature
 
 As mentioned in the [Available Features](#available-features) section, you can request `/STATE` from your NodeMCU to be returned either `1` or `0` depending on the state. This can be useful if you would like to know the state of the reley especially if it is useful for smart integration.
-
-### Alternative scripts
-
-Whilst it is **highly** recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility due to the fact that it contains all of the action types; if you _do_ wish to only flash the NodeMCU with a specific action (i.e. Switch, Modulation or Momentary), you can find these individual scripts located in the `Other Scripts` folder in this repository. 
-
-You can also find some more specialiased scripts in the `Special Scripts` folder. There, you can find a script designed specifically for more secure applications like Garage Door openers. There is also a script which can be used to automate pre-existing light switches in your home.
