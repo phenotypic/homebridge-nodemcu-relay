@@ -10,12 +10,11 @@
 /////////////////// CHANGE THESE VALUES //////////////////////
 const char* ssid = "SSID"; //Name of your network
 const char* password = "PASSWORD"; //Password for your network
-const char* onKey = "/ONkey"; //e.g. "/2148320" or "/IOHEWohVuw"
-const char* offKey = "/OFFkey"; //e.g. "/9329812" or "/ewjiVLEfeN"
+const char* key = "/SECRETKEY"; //e.g. "/2148320" or "/IOHEWohVuw"
 const int delayTimeOn = 1000; //Delay time for the on state (ms)
 //////////////////////////////////////////////////////////////
 
-int value = LOW;
+bool value = false;
 
 const int highPin = 13; //Declares "highPin" being pin 13 (D7) on NodeMCU
 const int lowPin = 2; //Declaers "lowPin" being pin 2 (D4) on NodeMCU
@@ -88,28 +87,19 @@ void loop() {
   client.println("Content-Type: text/html");
   client.println("");
 
-  if (request.indexOf(onKey) != -1)  {
+  if (request.indexOf(key) != -1)  {
     digitalWrite(lowPin, LOW);
     digitalWrite(highPin, HIGH);
     delay(delayTimeOn);
     digitalWrite(highPin, LOW);
     digitalWrite(lowPin, HIGH);
-    value = HIGH;
+    value = !value;
     client.print("Done");
   }
 
-  if (request.indexOf(offKey) != -1)  {
-    digitalWrite(lowPin, LOW);
-    digitalWrite(highPin, HIGH);
-    delay(delayTimeOn);
-    digitalWrite(highPin, LOW);
-    digitalWrite(lowPin, HIGH);
-    value = LOW;
-    client.print("Done");
-  }
 
   if (request.indexOf("/STATE") != -1)  {
-    if(value == HIGH) {
+    if(value) {
       client.print("1");
     } else {
       client.print("0");
