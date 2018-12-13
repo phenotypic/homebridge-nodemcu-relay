@@ -3,11 +3,7 @@
 
 ## What is it?
 
-homebridge-nodemcu-relay allows for the cheap and easy control of a relay via [homebridge](https://github.com/nfarina/homebridge); opening a wide variety of use-cases including Gate/Garage openers, sprinkler control, lights on/off and far more.
-
-## How does it work?
-
-homebridge-nodemcu-relay provides an Arduino script designed to be flashed onto a NodeMCU. After successful flashing, you will be able to quickly and simply integrate it into your pre-existing homebridge setup with the use of an http plugin such as [homebridge-http](https://github.com/rudders/homebridge-http).
+homebridge-nodemcu-relay provides an Arduino script which allows you to cheaply and easily integrate a [homebridge](https://github.com/nfarina/homebridge) controlled relay into your pre-existing homebridge setup with the use of an http plugin like [homebridge-http](https://github.com/rudders/homebridge-http); opening a wide variety of use-cases including Gate/Garage openers, sprinkler control, lights on/off and far more.
 
 ## Requirements
 
