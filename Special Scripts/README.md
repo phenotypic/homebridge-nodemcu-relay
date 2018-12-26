@@ -8,7 +8,7 @@ As mentioned in the main README, this repository includes a few 'Special Scripts
 
 **HOWEVER:** this is, in no way, completely secure and should therefore be treated as such. You must entirely acknowledge the risks associated with using an unprofessionally made script, especially when it is security that you are looking for.
 
-## Manual Switch
+## Manual Switch (Untested)
 
 This script aims to enable you to automate pre-existing light switches in your home. Here is a wiring diagram:
 
@@ -18,7 +18,7 @@ The idea is that you place the above circuit behind a light switch, connect the 
 
 **NOTE:** Lighting is **MAINS VOLTAGE** and can be **HARMFUL**; therefore, you should not intereact with it unless you genuinely know what you're doing! Furthermore, depending on where you live, this could be considered illegal as it may break health and safety laws.
 
-Here is an example `config.json` file:
+Here is an example `config.json` file which makes use of [homebridge-http-switch](https://github.com/Supereg/homebridge-http-switch):
 
 ```json
 {
