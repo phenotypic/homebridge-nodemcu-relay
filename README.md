@@ -84,7 +84,7 @@ It is also worth noting that the script provides a web interface available at ei
 
 ### Alternative scripts
 
-Whilst it is **highly** recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility due to the fact that it contains all of the action types; you can also find some more specialiased scripts in the `Special Scripts` folder. There, you can find a script designed specifically for more secure applications like Garage Door openers. There is also a script which could be used to automate pre-existing light switches in your home.
+Whilst it is **highly** recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility, you can also find some more specialiased scripts in the `Special Scripts` folder. There, you can find a script designed specifically for more secure applications like Garage Door openers. There is also a script which could be used to automate pre-existing light switches in your home.
 
 Furthermore, if you _do_ wish to only flash the NodeMCU with a specific action (i.e. Switch, Modulation or Momentary), you can find these individual scripts located in the `Other Scripts` folder in this repository. 
 
