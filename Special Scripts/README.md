@@ -33,7 +33,7 @@ Here is an example `config.json` file:
         {
           "accessory": "HTTP-SWITCH",
           "name": "Switch",
-	        "switchType": "stateful",
+	  "switchType": "stateful",
           "onUrl": "http://nodemcu.local/SWITCH=ON",
           "offUrl": "http://nodemcu.local/SWITCH=OFF",
           "statusUrl": "http://nodemcu.local",
