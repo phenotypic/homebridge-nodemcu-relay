@@ -29,28 +29,15 @@ sudo npm install -g homebridge-http
 3. Below is the example `config.json` file which assumes that you want to use [homebridge-http](https://github.com/rudders/homebridge-http) to communicate with your NodeMCU, and that you want to use the `SWITCH` [feature](#available-features):
 
 ```json
-{
-    "bridge": {
-        "name": "Homebridge",
-        "username": "CC:22:3D:E3:CE:30",
-        "port": 51826,
-        "pin": "031-45-154"
-    },
-   
-
-    "accessories": [
-        {
-          "accessory": "Http",
-          "name": "Lights",
-          "on_url": "http://nodemcu.local/SWITCH=ON",
-          "off_url": "http://nodemcu.local/SWITCH=OFF",
-          "http_method": "GET"
-        }
-    ],
-
-    "platforms": [
-    ]
-}
+"accessories": [
+    {
+      "accessory": "Http",
+      "name": "Lights",
+      "on_url": "http://nodemcu.local/SWITCH=ON",
+      "off_url": "http://nodemcu.local/SWITCH=OFF",
+      "http_method": "GET"
+    }
+]
 ```
 
 4. And that's it! The `config.json` example above will simply turn the relay either on or off depending on what you request due to the fact that `SWITCH` is listed as the action. If you want to do another action with the relay like a momentary pulse, read the [Available Features](#available-features) section below.
