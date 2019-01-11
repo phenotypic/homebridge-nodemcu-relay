@@ -44,7 +44,7 @@ sudo npm install -g homebridge-http
 
 ## Wiring
 
-Depending on which relay module you have, it will either be a `HIGH` or `LOW` activation relay. The `NodeMCU-Relay.ino` script accommodates for both, providing two seperate pins depending on which type of relay you have:
+Depending on which relay module you have, it will either be `HIGH` or `LOW` activation. The `NodeMCU-Relay.ino` script accommodates for both, providing two seperate pins depending on which type of relay you have:
 
 ![Diagram](https://image.ibb.co/hEDhFL/Wiring-Relay-Diagram.jpg)
 
@@ -64,7 +64,7 @@ Here is a table which shows you the available relay actions included with the `N
 
 #### Web Interface
 
-It is also worth noting that the script provides a web interface available at either `nodemcu.local` or the IP address of your NodeMCU. From the (very basic) web interface, you can control any of the features included in the script. However, it is importatnt to know that using the web interface to control the NodeMCU will **not** update the state in the Home app but can be useful if you have people in your home who do not have an Apple device.
+It is also worth noting that the script provides a web interface available at either `nodemcu.local` or the IP address of your NodeMCU. From the (very basic) web interface, you can control any of the features included in the script. However, it is importatnt to know that using the web interface to control the NodeMCU may not update the state in the Home app depending on the plugin being used. However, the interface can be useful if you have people in your home who do not have an Apple device.
 
 
 ## Other features
@@ -77,7 +77,7 @@ Furthermore, if you _do_ wish to only flash the NodeMCU with a specific action (
 
 ### Integrating with a 'command' plugin
 
-Whilst the `NodeMCU-Relay.ino` script was designed to be interacted with by an http plugin; it _is_ possible to control the NodeMCU from a "command" type plugin such as [homebridge-garagedoor-command](https://github.com/apexad/homebridge-garagedoor-command) by using:
+Whilst the `NodeMCU-Relay.ino` script was designed to be interacted with by an http plugin, it is possible to control the NodeMCU from a 'command' type plugin such as [homebridge-garagedoor-command](https://github.com/apexad/homebridge-garagedoor-command) by using:
 ```
 curl http://nodemcu.local/ACTION
 ```
@@ -85,4 +85,4 @@ Where `ACTION` is the action you wish to perform (e.g. `MOMENTARY=ON`).
 
 ### Using the STATE feature
 
-As mentioned in the [Available Features](#available-features) section, you can request `/STATE` from your NodeMCU to be returned either `1` or `0` depending on the state. This can be useful if you would like to know the state of the reley especially if it is useful for smart integration.
+As mentioned in the [Available Features](#available-features) section, you can request `/STATE` from your NodeMCU to be returned either `1` or `0` depending on the state. This can be useful if you would like to know the state of the relay for smart integration.
