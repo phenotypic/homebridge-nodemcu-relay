@@ -13,14 +13,14 @@
 const char* ssid = "SSID"; //Name of your network
 const char* password = "PASSWORD"; //Password for your network
 // For Modulation:
-const uint32_t ON_TIME  = 5000; //Amount of time for relay to be on for MODULATION (ms)
-const uint32_t OFF_TIME = 10000; //Amount of time for relay to be off for MODULATION (ms)
+const uint32_t ON_TIME = 5000; //Time (in ms) for relay to be ON when modulating
+const uint32_t OFF_TIME = 10000; //Time (in ms) for relay to be OFF when modulating
 // For Momentary:
-const int delayTimeOn = 1000; //Delay time for the on state for MOMENTARY (ms)
-const int delayTimeOff = 1000; //Delay time for the off state for MOMENTARY (ms)
+const int delayTimeOn = 1000; //Delay time (in ms) for the ON state for MOMENTARY
+const int delayTimeOff = 1000; //Delay time (in ms) for the OFF state for MOMENTARY
 //////////////////////////////////////////////////////////////
 
-int value = LOW;
+bool stateBool = false;
 
 bool led_blinking, led_on, ignoreMe;
 uint32_t last_toggle;
@@ -141,17 +141,21 @@ void loop() {
   Serial.println(request);
   client.flush();
 
+  client.println("HTTP/1.1 200 OK");
+  client.println("Content-Type: text/html");
+  client.println("");
+
   // Match the request
 
     if (request.indexOf("/MODULATION=ON") != -1)  {
        ignoreMe = false;
        start_blinking();
-       value = HIGH;
+       stateBool = true;
     }
     if (request.indexOf("/MODULATION=OFF") != -1)  {
        ignoreMe = false;
        stop_blinking();
-       value = LOW;
+       stateBool = false;
     }
     if (request.indexOf("/MOMENTARY=ON") != -1)  {
       stop_blinking();
@@ -160,7 +164,7 @@ void loop() {
       delay(delayTimeOn);
       digitalWrite(highPin, LOW);
       digitalWrite(lowPin, HIGH);
-      value = HIGH;
+      stateBool = true;
       ignoreMe = false;
     }
     if (request.indexOf("/MOMENTARY=OFF") != -1)  {
@@ -170,32 +174,25 @@ void loop() {
       delay(delayTimeOff);
       digitalWrite(highPin, LOW);
       digitalWrite(lowPin, HIGH);
-      value = LOW;
+      stateBool = false;
       ignoreMe = false;
     }
     if (request.indexOf("/SWITCH=ON") != -1)  {
       stop_blinking();
       digitalWrite(highPin, HIGH);
       digitalWrite(lowPin, LOW);
-      value = HIGH;
+      stateBool = true;
       ignoreMe = true;
     }
     if (request.indexOf("/SWITCH=OFF") != -1)  {
       stop_blinking();
       digitalWrite(highPin, LOW);
       digitalWrite(lowPin, HIGH);
-      value = LOW;
+      stateBool = false;
       ignoreMe = false;
     }
     if (request.indexOf("/STATE") != -1)  {
-      client.println("HTTP/1.1 200 OK");
-      client.println("Content-Type: text/html");
-      client.println("");
-      if(value == HIGH) {
-        client.print("1");
-      } else {
-        client.print("0");
-      }
+      client.println(String(stateBool));
       delay(1);
       Serial.println("Client disonnected");
       Serial.println("");
@@ -204,33 +201,29 @@ void loop() {
 
   // REMOVE EVERYTHING BELOW (UNTIL "END") IF YOU DONT WANT AN ONLINE INTERFACE
   // --------------------------------------------------------------------------
-  client.println("HTTP/1.1 200 OK");
-  client.println("Content-Type: text/html");
-  client.println("");
   client.println("<!DOCTYPE HTML>");
   client.println("<html>");
+  client.println("<h1>NodeMCU Relay</h1>");
+  client.println("<h3><u>Current state: " + String(stateBool) + "</u></h3>");
 
-  client.print("Current state: ");
-
-  if(value == HIGH) {
-    client.print("On");
-  } else {
-    client.print("Off");
-  }
+  client.println("<b>Modulation</b>");
+  client.println("<a href=\"/MODULATION=ON\"><button>On</button></a>");
+  client.println("<a href=\"/MODULATION=OFF\"><button>Off</button></a>");
   client.println("<br><br>");
-  client.println("<a href=\"/MODULATION=ON\"\"><button>Modulation On </button></a>");
-  client.println("<a href=\"/MODULATION=OFF\"\"><button>Modulation Off </button></a>");
-  
-  client.println("<a href=\"/MOMENTARY=ON\"\"><button>Momentary On </button></a>");
-  client.println("<a href=\"/MOMENTARY=OFF\"\"><button>Momentary Off </button></a>");
-  
-  client.println("<a href=\"/SWITCH=ON\"\"><button>Switch On </button></a>");
-  client.println("<a href=\"/SWITCH=OFF\"\"><button>Switch Off </button></a><br />");
+
+  client.println("<b>Momentary</b>");
+  client.println("<a href=\"/MOMENTARY=ON\"><button>On</button></a>");
+  client.println("<a href=\"/MOMENTARY=OFF\"><button>Off</button></a>");
+  client.println("<br><br>");
+
+  client.println("<b>Switch</b>");
+  client.println("<a href=\"/SWITCH=ON\"><button>On</button></a>");
+  client.println("<a href=\"/SWITCH=OFF\"><button>Off</button></a>");
   client.println("</html>");
+  // --------------------------------------------------------------------------
+  // END
 
   delay(1);
   Serial.println("Client disonnected");
   Serial.println("");
-  // END
-  // --------------------------------------------------------------------------
 }
