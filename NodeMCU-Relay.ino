@@ -82,40 +82,40 @@ void setup() {
 //Start of modulation functions
 void update_led() {
   uint32_t now = millis();
-    if (!led_blinking && !ignoreMe) {
-        digitalWrite(highPin, LOW);
-        digitalWrite(lowPin, HIGH);
-        led_on = false;
-        last_toggle = now - OFF_TIME;
-        return;
-    }
-    if (led_on && now - last_toggle >= ON_TIME && !ignoreMe) {
-        digitalWrite(highPin, LOW);
-        digitalWrite(lowPin, HIGH);
-        led_on = false;
-        last_toggle = now;
-    }
-    if (!led_on && now - last_toggle >= OFF_TIME && !ignoreMe) {
-        digitalWrite(highPin, HIGH);
-        digitalWrite(lowPin, LOW);
-        led_on = true;
-        last_toggle = now;
-    }
+  if (!led_blinking && !ignoreMe) {
+    digitalWrite(highPin, LOW);
+    digitalWrite(lowPin, HIGH);
+    led_on = false;
+    last_toggle = now - OFF_TIME;
+    return;
+  }
+  if (led_on && now - last_toggle >= ON_TIME && !ignoreMe) {
+    digitalWrite(highPin, LOW);
+    digitalWrite(lowPin, HIGH);
+    led_on = false;
+    last_toggle = now;
+  }
+  if (!led_on && now - last_toggle >= OFF_TIME && !ignoreMe) {
+    digitalWrite(highPin, HIGH);
+    digitalWrite(lowPin, LOW);
+    led_on = true;
+    last_toggle = now;
+  }
 }
 
 void start_blinking() {
-    digitalWrite(highPin, HIGH);
-    digitalWrite(lowPin, LOW);
-    led_blinking = true;
-    led_on = true;
-    last_toggle = millis();
+  digitalWrite(highPin, HIGH);
+  digitalWrite(lowPin, LOW);
+  led_blinking = true;
+  led_on = true;
+  last_toggle = millis();
 }
 
 void stop_blinking() {
-    digitalWrite(highPin, LOW);
-    digitalWrite(lowPin, HIGH);
-    led_blinking = false;
-    led_on = false;
+  digitalWrite(highPin, LOW);
+  digitalWrite(lowPin, HIGH);
+  led_blinking = false;
+  led_on = false;
 }
 //End of modulation functions
 
@@ -132,7 +132,7 @@ void loop() {
 
   // Wait until the client sends some data
   Serial.println("New client");
-  while(!client.available()){
+  while (!client.available()) {
     delay(1);
   }
 
@@ -147,57 +147,57 @@ void loop() {
 
   // Match the request
 
-    if (request.indexOf("/MODULATION=ON") != -1)  {
-       ignoreMe = false;
-       start_blinking();
-       stateBool = true;
-    }
-    if (request.indexOf("/MODULATION=OFF") != -1)  {
-       ignoreMe = false;
-       stop_blinking();
-       stateBool = false;
-    }
-    if (request.indexOf("/MOMENTARY=ON") != -1)  {
-      stop_blinking();
-      digitalWrite(lowPin, LOW);
-      digitalWrite(highPin, HIGH);
-      delay(delayTimeOn);
-      digitalWrite(highPin, LOW);
-      digitalWrite(lowPin, HIGH);
-      stateBool = true;
-      ignoreMe = false;
-    }
-    if (request.indexOf("/MOMENTARY=OFF") != -1)  {
-      stop_blinking();
-      digitalWrite(lowPin, LOW);
-      digitalWrite(highPin, HIGH);
-      delay(delayTimeOff);
-      digitalWrite(highPin, LOW);
-      digitalWrite(lowPin, HIGH);
-      stateBool = false;
-      ignoreMe = false;
-    }
-    if (request.indexOf("/SWITCH=ON") != -1)  {
-      stop_blinking();
-      digitalWrite(highPin, HIGH);
-      digitalWrite(lowPin, LOW);
-      stateBool = true;
-      ignoreMe = true;
-    }
-    if (request.indexOf("/SWITCH=OFF") != -1)  {
-      stop_blinking();
-      digitalWrite(highPin, LOW);
-      digitalWrite(lowPin, HIGH);
-      stateBool = false;
-      ignoreMe = false;
-    }
-    if (request.indexOf("/STATE") != -1)  {
-      client.println(String(stateBool));
-      delay(1);
-      Serial.println("Client disonnected");
-      Serial.println("");
-      return;
-    }
+  if (request.indexOf("/MODULATION=ON") != -1) {
+    ignoreMe = false;
+    start_blinking();
+    stateBool = true;
+  }
+  if (request.indexOf("/MODULATION=OFF") != -1) {
+    ignoreMe = false;
+    stop_blinking();
+    stateBool = false;
+  }
+  if (request.indexOf("/MOMENTARY=ON") != -1) {
+    stop_blinking();
+    digitalWrite(lowPin, LOW);
+    digitalWrite(highPin, HIGH);
+    delay(delayTimeOn);
+    digitalWrite(highPin, LOW);
+    digitalWrite(lowPin, HIGH);
+    stateBool = true;
+    ignoreMe = false;
+  }
+  if (request.indexOf("/MOMENTARY=OFF") != -1) {
+    stop_blinking();
+    digitalWrite(lowPin, LOW);
+    digitalWrite(highPin, HIGH);
+    delay(delayTimeOff);
+    digitalWrite(highPin, LOW);
+    digitalWrite(lowPin, HIGH);
+    stateBool = false;
+    ignoreMe = false;
+  }
+  if (request.indexOf("/SWITCH=ON") != -1) {
+    stop_blinking();
+    digitalWrite(highPin, HIGH);
+    digitalWrite(lowPin, LOW);
+    stateBool = true;
+    ignoreMe = true;
+  }
+  if (request.indexOf("/SWITCH=OFF") != -1) {
+    stop_blinking();
+    digitalWrite(highPin, LOW);
+    digitalWrite(lowPin, HIGH);
+    stateBool = false;
+    ignoreMe = false;
+  }
+  if (request.indexOf("/STATE") != -1) {
+    client.println(String(stateBool));
+    delay(1);
+    Serial.println("Client disonnected");
+    Serial.println("");
+    return;
+  }
 
   // REMOVE EVERYTHING BELOW (UNTIL "END") IF YOU DONT WANT AN ONLINE INTERFACE
   // --------------------------------------------------------------------------
