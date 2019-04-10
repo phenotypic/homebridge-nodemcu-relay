@@ -3,7 +3,7 @@
 
 ## What is it?
 
-homebridge-nodemcu-relay provides an Arduino script which allows you to cheaply and easily integrate a [homebridge](https://github.com/nfarina/homebridge) controlled relay into your pre-existing homebridge setup with the use of an http plugin like [homebridge-http](https://github.com/rudders/homebridge-http); opening a wide variety of use-cases including Gate/Garage openers, sprinkler control, lights on/off and far more.
+homebridge-nodemcu-relay provides an Arduino script which allows you to cheaply and easily integrate a [homebridge](https://github.com/nfarina/homebridge)-controlled relay into your pre-existing setup with the use of an http plugin like [homebridge-http](https://github.com/rudders/homebridge-http); opening a wide variety of use-cases including Gate/Garage openers, sprinkler control, lights on/off and far more.
 
 ## Requirements
 
@@ -21,7 +21,7 @@ homebridge-nodemcu-relay provides an Arduino script which allows you to cheaply 
 
 1. First, follow [this](https://gist.github.com/Tommrodrigues/8d9d3b886936ccea9c21f495755640dd) gist which walks you through how to flash a NodeMCU using the Arduino IDE. The `.ino` file reffered to is the `NodeMCU-Relay.ino` file included in this repository
 
-2. Assuming that you already have [homebridge](https://github.com/nfarina/homebridge#installation) set up, the next thing you will have to do is install the http plugin you want to use. It is recommended that you use [homebridge-http](https://github.com/rudders/homebridge-http) due to its stability and wide usage. To install [homebridge-http](https://github.com/rudders/homebridge-http), use the command:
+2. Assuming that you already have [homebridge](https://github.com/nfarina/homebridge#installation) set up, the next thing you will have to do is install the http plugin you want to use. It is recommended that you use [homebridge-http](https://github.com/rudders/homebridge-http) due to its stability and widespread usage. To install [homebridge-http](https://github.com/rudders/homebridge-http), use the command:
 ```
 sudo npm install -g homebridge-http
 ```
@@ -33,14 +33,14 @@ sudo npm install -g homebridge-http
     {
       "accessory": "Http",
       "name": "Lights",
-      "on_url": "http://nodemcu.local/SWITCH=ON",
-      "off_url": "http://nodemcu.local/SWITCH=OFF",
+      "on_url": "http://IP_ADDRESS/SWITCH=ON",
+      "off_url": "http://IP_ADDRESS/SWITCH=OFF",
       "http_method": "GET"
     }
 ]
 ```
 
-4. And that's it! The `config.json` example above will simply turn the relay either on or off depending on what you request due to the fact that `SWITCH` is listed as the action. If you want to do another action with the relay like a momentary pulse, read the [Available Features](#available-features) section below.
+4. Simply change `IP_ADDRESS` to the IP of your NodeMCU and that's it! The `config.json` example above will simply turn the relay either on or off depending on what you request due to the fact that `SWITCH` is listed as the action. If you want to do another action with the relay like a momentary pulse, read the [Available Features](#available-features) section below.
 
 ## Wiring
 
@@ -51,20 +51,20 @@ Depending on which relay module you have, it will either be `HIGH` or `LOW` acti
 
 ## Available Features
 
-As you can see from the `config.json` example above, the basic format of the HTTP request is the IP address of your NodeMCU (`nodemcu.local`), followed by the action you wish to execute. 
+As you can see from the `config.json` example above, the basic format of the HTTP request is the IP address of your NodeMCU (`IP_ADDRESS`), followed by the action you wish to execute. 
 
 Here is a table which shows you the available relay actions included with the `NodeMCU-Relay.ino` script in this repository which can be included in the `config.json` to control different types of appliances:
 
 | Name | Full URLs | Description | Example Uses |
 | --- | --- | --- | --- |
-| Switch | `http://nodemcu.local/SWITCH=ON` `http://nodemcu.local/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, Faucets, Fans |
-| Momentary | `http://nodemcu.local/MOMENTARY=ON` `http://nodemcu.local/MOMENTARY=OFF` | Will activate the relay for a brief moment, then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | [Garages, Gates](#alternative-scripts), Buzzers |
-| Modulation | `http://nodemcu.local/MODULATION=ON` `http://nodemcu.local/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights, Sprinkler systems |
-| State | `http://nodemcu.local/STATE` | Will return either `1` (On) or `0` (Off) depending on the relay's current state | N/A |
+| Switch | `http://IP_ADDRESS/SWITCH=ON` `http://IP_ADDRESS/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, Faucets, Fans |
+| Momentary | `http://IP_ADDRESS/MOMENTARY=ON` `http://IP_ADDRESS/MOMENTARY=OFF` | Will activate the relay for a brief moment, then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | [Garages, Gates](#alternative-scripts), Buzzers |
+| Modulation | `http://IP_ADDRESS/MODULATION=ON` `http://IP_ADDRESS/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights, Sprinkler systems |
+| State | `http://IP_ADDRESS/STATE` | Will return either `1` (On) or `0` (Off) depending on the relay's current state | N/A |
 
 #### Web Interface
 
-It is also worth noting that the script provides a web interface available at either `nodemcu.local` or the IP address of your NodeMCU. From the (very basic) web interface, you can control any of the features included in the script. However, it is importatnt to know that using the web interface to control the NodeMCU may not update the state in the Home app depending on the plugin being used. However, the interface can be useful if you have people in your home who do not have an Apple device.
+It is also worth noting that the script provides a web interface available at the IP address of your NodeMCU. From the (very basic) web interface, you can control any of the features included in the script. However, it is importatnt to know that using the web interface to control the NodeMCU may not update the state in the Home app depending on the plugin being used. However, the interface can be useful if you have people in your home who do not have an Apple device.
 
 
 ## Other features
@@ -79,7 +79,7 @@ Furthermore, if you _do_ wish to only flash the NodeMCU with a specific action (
 
 Whilst the `NodeMCU-Relay.ino` script was designed to be interacted with by an http plugin, it is possible to control the NodeMCU from a 'command' type plugin such as [homebridge-garagedoor-command](https://github.com/apexad/homebridge-garagedoor-command) by using:
 ```
-curl http://nodemcu.local/ACTION
+curl http://IP_ADDRESS/ACTION
 ```
 Where `ACTION` is the action you wish to perform (e.g. `MOMENTARY=ON`).
 
