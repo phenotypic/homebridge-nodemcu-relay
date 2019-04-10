@@ -58,7 +58,6 @@ void setup() {
   Serial.print(WiFi.localIP());
   Serial.println("/");
 
-
   digitalWrite(redPin, HIGH);
 
 }
