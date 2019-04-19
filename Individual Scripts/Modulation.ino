@@ -37,28 +37,25 @@ void setup() {
   // Connect to WiFi network
   Serial.println();
   Serial.println();
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
+  Serial.println("Connecting to \"" + String(ssid) + "\"");
 
   WiFi.softAPdisconnect(true);
   WiFi.begin(ssid, password);
 
+  int i = 0;
   while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+    delay(1000);
+    Serial.print(String(++i) + " ");
   }
-  Serial.println("");
-  Serial.println("WiFi connected");
+  Serial.println();
+  Serial.println("Connected successfully");
 
   // Start the server
   server.begin();
-  Serial.println("Server started");
 
   // Print the IP address
-  Serial.print("Use this URL to connect: ");
-  Serial.print("http://");
-  Serial.print(WiFi.localIP());
-  Serial.println("/");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
 
   digitalWrite(redPin, HIGH);
 
