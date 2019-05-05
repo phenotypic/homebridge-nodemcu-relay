@@ -10,38 +10,34 @@ This script interfaces with a [homebridge](https://github.com/nfarina/homebridge
 
 * NodeMCU
 
-* 3V Relay Module
+* Relay Module
 
 * Pin header cables
 
 * Micro-USB cable
 
-* A method for flashing the NodeMCU with Arduino scripts (NodeMCU method described [below](#how-to))
-
 ## How-to
 
 1. First, follow [this](https://gist.github.com/Tommrodrigues/8d9d3b886936ccea9c21f495755640dd) gist which walks you through how to flash a NodeMCU using the Arduino IDE. The `.ino` file reffered to is the `NodeMCU-Relay.ino` file included in this repository
 
-2. Assuming that you already have [homebridge](https://github.com/nfarina/homebridge#installation) set up, the next thing you will have to do is install the http plugin you want to use. It is recommended that you use [homebridge-http](https://github.com/rudders/homebridge-http) due to its stability and widespread usage. To install [homebridge-http](https://github.com/rudders/homebridge-http), use the command:
+2. Assuming that you already have [homebridge](https://github.com/nfarina/homebridge#installation) set up, the next thing you will have to do is install [homebridge-http](https://github.com/rudders/homebridge-http) using the command:
 ```
-sudo npm install -g homebridge-http
+npm install -g homebridge-http
 ```
 
-3. Below is the example `config.json` file which assumes that you want to use [homebridge-http](https://github.com/rudders/homebridge-http) to communicate with your NodeMCU, and that you want to use the `SWITCH` [feature](#available-features):
+3. Finally, update your `config.json` file following the example below, making sure to [adapt it](#available-features) accordingly:
 
 ```json
 "accessories": [
     {
       "accessory": "Http",
       "name": "Lights",
-      "on_url": "http://IP_ADDRESS/SWITCH=ON",
-      "off_url": "http://IP_ADDRESS/SWITCH=OFF",
+      "on_url": "http://relay.local/SWITCH=ON",
+      "off_url": "http://relay.local/SWITCH=OFF",
       "http_method": "GET"
     }
 ]
 ```
-
-4. Simply change `IP_ADDRESS` to the IP of your NodeMCU and that's it! The `config.json` example above will simply turn the relay either on or off depending on what you request due to the fact that `SWITCH` is listed as the action. If you want to do another action with the relay like a momentary pulse, read the [Available Features](#available-features) section below.
 
 ## Wiring
 
@@ -52,7 +48,7 @@ Depending on which relay module you have, it will either be `HIGH` or `LOW` acti
 
 ## Available Features
 
-As you can see from the `config.json` example above, the basic format of the HTTP request is the IP address of your NodeMCU (`IP_ADDRESS`), followed by the action you wish to execute. 
+As you can see from the `config.json` example above, the basic format of the HTTP request is the IP address of your NodeMCU followed by the action you wish to execute. 
 
 Here is a table which shows you the available relay actions included with the `NodeMCU-Relay.ino` script in this repository which can be included in the `config.json` to control different types of appliances:
 
@@ -75,14 +71,6 @@ It is also worth noting that the script provides a web interface available at th
 Whilst it is **highly** recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility, you can also find some more specialiased scripts in the `Special Scripts` folder. There, you can find a script designed specifically for more secure applications like Garage Door openers. There is also a script which could be used to automate pre-existing light switches in your home.
 
 Furthermore, if you _do_ wish to only flash the NodeMCU with a specific action (i.e. Switch, Modulation or Momentary), you can find these individual scripts located in the `Other Scripts` folder in this repository. 
-
-### Integrating with a 'command' plugin
-
-Whilst the `NodeMCU-Relay.ino` script was designed to be interacted with by an http plugin, it is possible to control the NodeMCU from a 'command' type plugin such as [homebridge-garagedoor-command](https://github.com/apexad/homebridge-garagedoor-command) by using:
-```
-curl http://IP_ADDRESS/ACTION
-```
-Where `ACTION` is the action you wish to perform (e.g. `MOMENTARY=ON`).
 
 ### Using the STATE feature
 
