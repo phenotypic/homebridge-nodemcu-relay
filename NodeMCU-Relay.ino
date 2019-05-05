@@ -1,4 +1,5 @@
 #include <ESP8266WiFi.h>
+#include <ESP8266mDNS.h>
 
 // GitHub Page = https://github.com/Tommrodrigues/homebridge-nodemcu-relay
 
@@ -11,6 +12,7 @@
 // Required:
 const char* ssid = "SSID"; //Name of your network
 const char* password = "PASSWORD"; //Password for your network
+const char* mdns = "relay"; //mDNS name
 // For Modulation:
 const uint32_t ON_TIME = 5000; //Time (in ms) for relay to be ON when modulating
 const uint32_t OFF_TIME = 10000; //Time (in ms) for relay to be OFF when modulating
@@ -63,6 +65,11 @@ void setup() {
   // Print the IP address
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
+
+  if (!MDNS.begin(mdns)) {
+    Serial.println("Error setting up MDNS responder!");
+  }
+  Serial.println("mDNS address: http://" + String(mdns) + ".local");
 
   digitalWrite(redPin, HIGH);
 }
