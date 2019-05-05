@@ -62,7 +62,7 @@ void setup() {
   if (!MDNS.begin(mdns)) {
     Serial.println("Error setting up MDNS responder!");
   }
-  Serial.println("mDNS address: http://" + String(mdns) + ".local");
+  Serial.println("mDNS address: " + String(mdns) + ".local");
 
   digitalWrite(redPin, HIGH);
 
@@ -111,7 +111,9 @@ void stop_blinking() {
 //Main loop
 void loop() {
 
-    update_led();
+  update_led();
+
+  MDNS.update();
 
   // Check if a client has connected
   WiFiClient client = server.available();

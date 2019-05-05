@@ -32,8 +32,8 @@ npm install -g homebridge-http
     {
       "accessory": "Http",
       "name": "Lights",
-      "on_url": "http://relay.local/SWITCH=ON",
-      "off_url": "http://relay.local/SWITCH=OFF",
+      "on_url": "relay.local/SWITCH=ON",
+      "off_url": "relay.local/SWITCH=OFF",
       "http_method": "GET"
     }
 ]
@@ -48,16 +48,16 @@ Depending on which relay module you have, it will either be `HIGH` or `LOW` acti
 
 ## Available Features
 
-As you can see from the `config.json` example above, the basic format of the HTTP request is the IP address of your NodeMCU followed by the action you wish to execute. 
+As you can see from the `config.json` example above, the basic format of the HTTP request is the IP address of your NodeMCU followed by the action you wish to execute.
 
 Here is a table which shows you the available relay actions included with the `NodeMCU-Relay.ino` script in this repository which can be included in the `config.json` to control different types of appliances:
 
 | Name | Full URLs | Description | Example Uses |
 | --- | --- | --- | --- |
-| Switch | `http://relay.local/SWITCH=ON` `http://relay.local/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, Faucets, Fans |
-| Momentary | `http://relay.local/MOMENTARY=ON` `http://relay.local/MOMENTARY=OFF` | Will activate the relay for a brief moment, then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | [Garages, Gates](#alternative-scripts), Buzzers |
-| Modulation | `http://relay.local/MODULATION=ON` `http://relay.local/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights, Sprinkler systems |
-| State | `http://relay.local/STATE` | Will return either `1` (On) or `0` (Off) depending on the relay's current state | N/A |
+| Switch | `relay.local/SWITCH=ON` `relay.local/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, Faucets, Fans |
+| Momentary | `relay.local/MOMENTARY=ON` `relay.local/MOMENTARY=OFF` | Will activate the relay for a brief moment, then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | [Garages, Gates](#alternative-scripts), Buzzers |
+| Modulation | `relay.local/MODULATION=ON` `relay.local/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights, Sprinkler systems |
+| State | `relay.local/STATE` | Will return either `1` (On) or `0` (Off) depending on the relay's current state | N/A |
 
 #### Web Interface
 
@@ -70,7 +70,7 @@ It is also worth noting that the script provides a web interface available at th
 
 Whilst it is **highly** recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility, you can also find some more specialiased scripts in the `Special Scripts` folder. There, you can find a script designed specifically for more secure applications like Garage Door openers. There is also a script which could be used to automate pre-existing light switches in your home.
 
-Furthermore, if you _do_ wish to only flash the NodeMCU with a specific action (i.e. Switch, Modulation or Momentary), you can find these individual scripts located in the `Other Scripts` folder in this repository. 
+Furthermore, if you _do_ wish to only flash the NodeMCU with a specific action (i.e. Switch, Modulation or Momentary), you can find these individual scripts located in the `Other Scripts` folder in this repository.
 
 ### Using the STATE feature
 
