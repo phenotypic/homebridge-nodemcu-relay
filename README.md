@@ -1,9 +1,10 @@
 # homebridge-nodemcu-relay
-#### Easily integrate a homebridge-controlled relay into your home
 
-## What is it?
+![GitHub last commit](https://img.shields.io/github/last-commit/Tommrodrigues/homebridge-nodemcu-relay.svg) ![GitHub issues](https://img.shields.io/github/issues/Tommrodrigues/homebridge-nodemcu-relay.svg)
 
-homebridge-nodemcu-relay provides an Arduino script which allows you to cheaply and easily integrate a [homebridge](https://github.com/nfarina/homebridge)-controlled relay into your pre-existing setup with the use of an http plugin like [homebridge-http](https://github.com/rudders/homebridge-http); opening a wide variety of use-cases including Gate/Garage openers, sprinkler control, lights on/off and far more.
+## Description
+
+This script interfaces with a [homebridge](https://github.com/nfarina/homebridge) plugin to expose a relay to Apple's [HomeKit](http://www.apple.com/ios/home/), allowing you to integrate numerous devices into your smart-home.
 
 ## Requirements
 
