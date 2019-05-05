@@ -54,10 +54,10 @@ Here is a table which shows you the available relay actions included with the `N
 
 | Name | Full URLs | Description | Example Uses |
 | --- | --- | --- | --- |
-| Switch | `http://IP_ADDRESS/SWITCH=ON` `http://IP_ADDRESS/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, Faucets, Fans |
-| Momentary | `http://IP_ADDRESS/MOMENTARY=ON` `http://IP_ADDRESS/MOMENTARY=OFF` | Will activate the relay for a brief moment, then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | [Garages, Gates](#alternative-scripts), Buzzers |
-| Modulation | `http://IP_ADDRESS/MODULATION=ON` `http://IP_ADDRESS/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights, Sprinkler systems |
-| State | `http://IP_ADDRESS/STATE` | Will return either `1` (On) or `0` (Off) depending on the relay's current state | N/A |
+| Switch | `http://relay.local/SWITCH=ON` `http://relay.local/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, Faucets, Fans |
+| Momentary | `http://relay.local/MOMENTARY=ON` `http://relay.local/MOMENTARY=OFF` | Will activate the relay for a brief moment, then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | [Garages, Gates](#alternative-scripts), Buzzers |
+| Modulation | `http://relay.local/MODULATION=ON` `http://relay.local/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights, Sprinkler systems |
+| State | `http://relay.local/STATE` | Will return either `1` (On) or `0` (Off) depending on the relay's current state | N/A |
 
 #### Web Interface
 
