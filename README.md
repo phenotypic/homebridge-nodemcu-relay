@@ -61,17 +61,17 @@ Here is a table which shows you the available relay actions included with the `N
 
 #### Web Interface
 
-It is also worth noting that the script provides a web interface available at the IP address of your NodeMCU. From the (very basic) web interface, you can control any of the features included in the script. However, it is importatnt to know that using the web interface to control the NodeMCU may not update the state in the Home app depending on the plugin being used. However, the interface can be useful if you have people in your home who do not have an Apple device.
+It is also worth noting that the script provides a (very basic) web interface available at the IP address of your NodeMCU. However, it is important to know that using the web interface to control the NodeMCU will not update the state in the Home app unless you utilise the `STATE` feature. However, the interface can be useful if you have people in your home who do not have an Apple device.
 
 
 ## Other features
 
 ### Alternative scripts
 
-Whilst it is **highly** recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility, you can also find some more specialiased scripts in the `Special Scripts` folder. There, you can find a script designed specifically for more secure applications like Garage Door openers. There is also a script which could be used to automate pre-existing light switches in your home.
+Whilst it is recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility, you can find scripts for the individual actions(`MOMENTARY`, `SWITCH` & `MODULATION`) in the _Individual Scripts_ folder.
 
-Furthermore, if you _do_ wish to only flash the NodeMCU with a specific action (i.e. Switch, Modulation or Momentary), you can find these individual scripts located in the `Other Scripts` folder in this repository.
+Furthermore, there are some more specialiased scripts in the _Special Scripts_ folder. There, you can find a script designed specifically for more secure applications like Garage Door openers.
 
 ### Using the STATE feature
 
-As mentioned in the [Available Features](#available-features) section, you can request `/STATE` from your NodeMCU to be returned either `1` or `0` depending on the state. This can be useful if you would like to know the state of the relay for smart integration.
+As mentioned in the [Available Features](#available-features) section, you can request `/STATE` from your NodeMCU to be returned either `1` or `0` depending on the state. This can be useful if you would like to know the state of the relay for smarter integration.
