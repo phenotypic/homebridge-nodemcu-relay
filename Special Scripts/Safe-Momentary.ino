@@ -12,7 +12,7 @@
 const char* ssid = "SSID"; //Name of your network
 const char* password = "PASSWORD"; //Password for your network
 const char* mdns = "relay"; //mDNS name
-const char* key = "/SECRETKEY"; //e.g. "/2148320" or "/IOHEWohVuw"
+const char* key = "/SECRETKEY"; //e.g. "/NjWymLQzyd3PPp9N"
 const int delayTimeOn = 1000; //Delay time for the on state (ms)
 //////////////////////////////////////////////////////////////
 
