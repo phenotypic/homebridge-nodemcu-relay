@@ -18,7 +18,7 @@ This script interfaces with [homebridge](https://github.com/nfarina/homebridge) 
 
 ## How-to
 
-1. First, follow [this](https://gist.github.com/Tommrodrigues/8d9d3b886936ccea9c21f495755640dd) gist which walks you through how to flash a NodeMCU using the Arduino IDE. The `.ino` file reffered to is the `NodeMCU-Relay.ino` file included in this repository
+1. First, follow [this](https://gist.github.com/Tommrodrigues/8d9d3b886936ccea9c21f495755640dd) gist which walks you through how to flash a NodeMCU using the Arduino IDE. The `.ino` file referred to is the `NodeMCU-Relay.ino` file included in this repository
 
 2. Assuming that you already have [homebridge](https://github.com/nfarina/homebridge#installation) set up, the next thing you will have to do is install [homebridge-http](https://github.com/rudders/homebridge-http) using the command:
 ```
@@ -70,7 +70,7 @@ It is also worth noting that the script provides a (very basic) web interface av
 
 Whilst it is recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility, you can find scripts for the individual actions(`MOMENTARY`, `SWITCH` & `MODULATION`) in the _Individual Scripts_ folder.
 
-Furthermore, there are some more specialiased scripts in the _Special Scripts_ folder. There, you can find a script designed specifically for more secure applications like Garage Door openers.
+Furthermore, there are some more specialised scripts in the _Special Scripts_ folder. There, you can find a script designed specifically for more secure applications like Garage Door openers.
 
 ### Using the STATE feature
 
