@@ -164,7 +164,7 @@ int value = LOW;
   client.println("</html>");
 
   delay(1);
-  Serial.println("Client disonnected");
+  Serial.println("Client disconnected");
   Serial.println("");
 
 }

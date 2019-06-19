@@ -191,7 +191,7 @@ void loop() {
   if (request.indexOf("/STATE") != -1) {
     client.println(String(stateBool));
     delay(1);
-    Serial.println("Client disonnected");
+    Serial.println("Client disconnected");
     Serial.println("");
     return;
   }
@@ -221,6 +221,6 @@ void loop() {
   // END
 
   delay(1);
-  Serial.println("Client disonnected");
+  Serial.println("Client disconnected");
   Serial.println("");
 }
