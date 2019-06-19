@@ -117,7 +117,7 @@ void loop() {
   client.println("</html>");
 
   delay(1);
-  Serial.println("Client disonnected");
+  Serial.println("Client disconnected");
   Serial.println("");
 
 }
