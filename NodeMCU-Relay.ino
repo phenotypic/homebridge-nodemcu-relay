@@ -5,50 +5,54 @@
 
 // Script Type = Relay Momentary, Switch, Modulation
 
-// D4 = LOW activation
-// D7 = HIGH activation
+// D7 = Relay
 
 /////////////////// CHANGE THESE VALUES //////////////////////
 // Required:
 const char* ssid = "SSID"; //Name of your network
 const char* password = "PASSWORD"; //Password for your network
+const char* relay = "HIGH"; //Relay type (`HIGH` or `LOW`)
 const char* mdns = "relay"; //mDNS name
 // For Modulation:
-const uint32_t ON_TIME = 5000; //Time (in ms) for relay to be ON when modulating
-const uint32_t OFF_TIME = 10000; //Time (in ms) for relay to be OFF when modulating
+const uint32_t modulationOn = 5000; //Time (in ms) for relay to be ON when modulating
+const uint32_t modulationOff = 20000; //Time (in ms) for relay to be OFF when modulating
 // For Momentary:
-const int delayTimeOn = 1000; //Delay time (in ms) for the ON state for MOMENTARY
-const int delayTimeOff = 1000; //Delay time (in ms) for the OFF state for MOMENTARY
+const int momentaryOn = 1000; //Delay time (in ms) for the ON state for MOMENTARY
+const int momentaryOff = 1000; //Delay time (in ms) for the OFF state for MOMENTARY
 //////////////////////////////////////////////////////////////
 
-bool stateBool = false;
+const int relayPin = 13;
+
+int state = 0;
 bool ignoreMe = false;
 
+int relayOn, relayOff;
 bool led_blinking, led_on;
 uint32_t last_toggle;
 
-const int highPin = 13; //Declares "highPin" being pin 13 (D7) on NodeMCU
-const int lowPin = 2; //Declaers "lowPin" being pin 2 (D4) on NodeMCU
-const int redPin = 16; //Declaers "redPin" being pin 16 (Red LED)
 WiFiServer server(80);
 
 void setup() {
   Serial.begin(115200);
   delay(10);
 
-  pinMode(lowPin, OUTPUT);
-  pinMode(highPin, OUTPUT);
-  pinMode(redPin, OUTPUT);
-  digitalWrite(highPin, LOW);
-  digitalWrite(lowPin, HIGH);
-  digitalWrite(redPin, LOW);
+  if (relay == "LOW") {
+    relayOn = 0;
+    relayOff = 1;
+  } else {
+    relayOn = 1;
+    relayOff = 0;
+  }
+
+  pinMode(relayPin, OUTPUT);
+  digitalWrite(relayPin, relayOff);
 
   // Connect to WiFi network
   Serial.println();
   Serial.println();
   Serial.println("Connecting to \"" + String(ssid) + "\"");
 
-  WiFi.softAPdisconnect(true);
+  WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
 
   int i = 0;
@@ -70,45 +74,38 @@ void setup() {
     Serial.println("Error setting up MDNS responder!");
   }
   Serial.println("mDNS address: " + String(mdns) + ".local");
-
-  digitalWrite(redPin, HIGH);
 }
 
 //Start of modulation functions
 void update_led() {
   uint32_t now = millis();
   if (!led_blinking && !ignoreMe) {
-    digitalWrite(highPin, LOW);
-    digitalWrite(lowPin, HIGH);
+    digitalWrite(relayPin, relayOff);
     led_on = false;
-    last_toggle = now - OFF_TIME;
+    last_toggle = now - modulationOff;
     return;
   }
-  if (led_on && now - last_toggle >= ON_TIME && !ignoreMe) {
-    digitalWrite(highPin, LOW);
-    digitalWrite(lowPin, HIGH);
+  if (led_on && now - last_toggle >= modulationOn && !ignoreMe) {
+    digitalWrite(relayPin, relayOff);
     led_on = false;
     last_toggle = now;
   }
-  if (!led_on && now - last_toggle >= OFF_TIME && !ignoreMe) {
-    digitalWrite(highPin, HIGH);
-    digitalWrite(lowPin, LOW);
+  if (!led_on && now - last_toggle >= modulationOff && !ignoreMe) {
+    digitalWrite(relayPin, relayOn);
     led_on = true;
     last_toggle = now;
   }
 }
 
 void start_blinking() {
-  digitalWrite(highPin, HIGH);
-  digitalWrite(lowPin, LOW);
+  digitalWrite(relayPin, relayOn);
   led_blinking = true;
   led_on = true;
   last_toggle = millis();
 }
 
 void stop_blinking() {
-  digitalWrite(highPin, LOW);
-  digitalWrite(lowPin, HIGH);
+  digitalWrite(relayPin, relayOff);
   led_blinking = false;
   led_on = false;
 }
@@ -143,82 +140,53 @@ void loop() {
   client.println("");
 
   // Match the request
-
   if (request.indexOf("/MODULATION=ON") != -1) {
     ignoreMe = false;
     start_blinking();
-    stateBool = true;
+    state = 1;
   }
+
   if (request.indexOf("/MODULATION=OFF") != -1) {
     ignoreMe = false;
     stop_blinking();
-    stateBool = false;
+    state = 0;
   }
+
   if (request.indexOf("/MOMENTARY=ON") != -1) {
     stop_blinking();
-    digitalWrite(lowPin, LOW);
-    digitalWrite(highPin, HIGH);
-    delay(delayTimeOn);
-    digitalWrite(highPin, LOW);
-    digitalWrite(lowPin, HIGH);
-    stateBool = true;
+    digitalWrite(relayPin, relayOn);
+    delay(momentaryOn);
+    digitalWrite(relayPin, relayOff);
+    state = 1;
     ignoreMe = false;
   }
+
   if (request.indexOf("/MOMENTARY=OFF") != -1) {
     stop_blinking();
-    digitalWrite(lowPin, LOW);
-    digitalWrite(highPin, HIGH);
-    delay(delayTimeOff);
-    digitalWrite(highPin, LOW);
-    digitalWrite(lowPin, HIGH);
-    stateBool = false;
+    digitalWrite(relayPin, relayOn);
+    delay(momentaryOff);
+    digitalWrite(relayPin, relayOff);
+    state = 0;
     ignoreMe = false;
   }
+
   if (request.indexOf("/SWITCH=ON") != -1) {
     stop_blinking();
-    digitalWrite(highPin, HIGH);
-    digitalWrite(lowPin, LOW);
-    stateBool = true;
+    digitalWrite(relayPin, relayOn);
+    state = 1;
     ignoreMe = true;
   }
+
   if (request.indexOf("/SWITCH=OFF") != -1) {
     stop_blinking();
-    digitalWrite(highPin, LOW);
-    digitalWrite(lowPin, HIGH);
-    stateBool = false;
+    digitalWrite(relayPin, relayOff);
+    state = 0;
     ignoreMe = false;
   }
-  if (request.indexOf("/STATE") != -1) {
-    client.println(String(stateBool));
-    delay(1);
-    Serial.println("Client disconnected");
-    Serial.println("");
-    return;
+
+  if (request.indexOf("/status") != -1) {
+    client.println("{\"currentState\": " + String(state) + "}");
   }
-
-  // REMOVE EVERYTHING BELOW (UNTIL "END") IF YOU DONT WANT AN ONLINE INTERFACE
-  // --------------------------------------------------------------------------
-  client.println("<!DOCTYPE HTML>");
-  client.println("<html>");
-  client.println("<h1>NodeMCU Relay</h1>");
-  client.println("<h3><u>Current state: " + String(stateBool) + "</u></h3>");
-
-  client.println("<b>Modulation</b>");
-  client.println("<a href=\"/MODULATION=ON\"><button>On</button></a>");
-  client.println("<a href=\"/MODULATION=OFF\"><button>Off</button></a>");
-  client.println("<br><br>");
-
-  client.println("<b>Momentary</b>");
-  client.println("<a href=\"/MOMENTARY=ON\"><button>On</button></a>");
-  client.println("<a href=\"/MOMENTARY=OFF\"><button>Off</button></a>");
-  client.println("<br><br>");
-
-  client.println("<b>Switch</b>");
-  client.println("<a href=\"/SWITCH=ON\"><button>On</button></a>");
-  client.println("<a href=\"/SWITCH=OFF\"><button>Off</button></a>");
-  client.println("</html>");
-  // --------------------------------------------------------------------------
-  // END
 
   delay(1);
   Serial.println("Client disconnected");
