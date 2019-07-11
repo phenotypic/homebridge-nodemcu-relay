@@ -41,8 +41,6 @@ npm install -g homebridge-http
 
 ## Wiring
 
-Depending on which relay module you have, it will either be `HIGH` or `LOW` activation. The `NodeMCU-Relay.ino` script accommodates for both, providing two seperate pins depending on which type of relay you have:
-
 ![Diagram](https://image.ibb.co/hEDhFL/Wiring-Relay-Diagram.jpg)
 
 
@@ -57,21 +55,8 @@ Here is a table which shows you the available relay actions included with the `N
 | Switch | `relay.local/SWITCH=ON` `relay.local/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, Faucets, Fans |
 | Momentary | `relay.local/MOMENTARY=ON` `relay.local/MOMENTARY=OFF` | Will activate the relay for a brief moment, then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | [Garages, Gates](#alternative-scripts), Buzzers |
 | Modulation | `relay.local/MODULATION=ON` `relay.local/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights, Sprinkler systems |
-| State | `relay.local/STATE` | Will return either `1` (On) or `0` (Off) depending on the relay's current state | N/A |
-
-#### Web Interface
-
-It is also worth noting that the script provides a (very basic) web interface available at the IP address of your NodeMCU. However, it is important to know that using the web interface to control the NodeMCU will not update the state in the Home app unless you utilise the `STATE` feature. However, the interface can be useful if you have people in your home who do not have an Apple device.
-
-
-## Other features
+| State | `relay.local/status` | Will return a JSON with the current state | N/A |
 
 ### Alternative scripts
 
-Whilst it is recommended to simply use the main `NodeMCU-Relay.ino` script due to its versatility, you can find scripts for the individual actions(`MOMENTARY`, `SWITCH` & `MODULATION`) in the _Individual Scripts_ folder.
-
 Furthermore, there are some more specialised scripts in the _Special Scripts_ folder. There, you can find a script designed specifically for more secure applications like Garage Door openers.
-
-### Using the STATE feature
-
-As mentioned in the [Available Features](#available-features) section, you can request `/STATE` from your NodeMCU to be returned either `1` or `0` depending on the state. This can be useful if you would like to know the state of the relay for smarter integration.
