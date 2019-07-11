@@ -22,7 +22,6 @@ const int momentaryOff = 1000; //Delay time (in ms) for the OFF state for MOMENT
 //////////////////////////////////////////////////////////////
 
 const int relayPin = 13;
-
 int state = 0;
 bool ignoreMe = false;
 
