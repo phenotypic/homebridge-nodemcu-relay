@@ -5,41 +5,45 @@
 
 // Script Type = Relay Momentary (For sensitive devices e.g. Garage Doors)
 
-// D4 = LOW activation
-// D7 = HIGH activation
+// D7 = Relay
 
 /////////////////// CHANGE THESE VALUES //////////////////////
 const char* ssid = "SSID"; //Name of your network
 const char* password = "PASSWORD"; //Password for your network
+const char* relay = "HIGH"; //Relay type (`HIGH` or `LOW`)
 const char* mdns = "relay"; //mDNS name
 const char* key = "/SECRETKEY"; //e.g. "/NjWymLQzyd3PPp9N"
-const int delayTimeOn = 1000; //Delay time for the on state (ms)
+const int momentaryOn = 1000; //Delay time for the on state (ms)
 //////////////////////////////////////////////////////////////
 
 bool value = false;
+const int relayPin = 13;
 
-const int highPin = 13; //Declares "highPin" being pin 13 (D7) on NodeMCU
-const int lowPin = 2; //Declaers "lowPin" being pin 2 (D4) on NodeMCU
-const int redPin = 16; //Declaers "redPin" being pin 16 (Red LED)
+int relayOn, relayOff;
+
 WiFiServer server(80);
 
 void setup() {
   Serial.begin(115200);
   delay(10);
 
-  pinMode(lowPin, OUTPUT);
-  pinMode(highPin, OUTPUT);
-  pinMode(redPin, OUTPUT);
-  digitalWrite(highPin, LOW);
-  digitalWrite(lowPin, HIGH);
-  digitalWrite(redPin, LOW);
+  if (relay == "LOW") {
+    relayOn = 0;
+    relayOff = 1;
+  } else {
+    relayOn = 1;
+    relayOff = 0;
+  }
+
+  pinMode(relayPin, OUTPUT);
+  digitalWrite(relayPin, relayOff);
 
   // Connect to WiFi network
   Serial.println();
   Serial.println();
   Serial.println("Connecting to \"" + String(ssid) + "\"");
 
-  WiFi.softAPdisconnect(true);
+  WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
 
   int i = 0;
@@ -61,9 +65,6 @@ void setup() {
     Serial.println("Error setting up MDNS responder!");
   }
   Serial.println("mDNS address: " + String(mdns) + ".local");
-
-  digitalWrite(redPin, HIGH);
-
 }
 
 void loop() {
@@ -94,22 +95,15 @@ void loop() {
   client.println("");
 
   if (request.indexOf(key) != -1)  {
-    digitalWrite(lowPin, LOW);
-    digitalWrite(highPin, HIGH);
-    delay(delayTimeOn);
-    digitalWrite(highPin, LOW);
-    digitalWrite(lowPin, HIGH);
+    digitalWrite(relayPin, relayOn);
+    delay(momentaryOn);
+    digitalWrite(relayPin, relayOff);
     value = !value;
-    client.print("Done");
   }
 
 
-  if (request.indexOf("/STATE") != -1)  {
-    if(value) {
-      client.print("1");
-    } else {
-      client.print("0");
-    }
+  if (request.indexOf("/status") != -1)  {
+    client.println("{\"currentState\": " + String(value) + "}");
   }
 
   delay(1);
