@@ -32,8 +32,8 @@ npm install -g homebridge-http
     {
       "accessory": "Http",
       "name": "Lights",
-      "on_url": "relay.local/SWITCH=ON",
-      "off_url": "relay.local/SWITCH=OFF",
+      "on_url": "http://relay.local/SWITCH=ON",
+      "off_url": "http://relay.local/SWITCH=OFF",
       "http_method": "GET"
     }
 ]
