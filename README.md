@@ -56,7 +56,3 @@ Here is a table which shows you the available relay actions included with the `N
 | Momentary | `relay.local/MOMENTARY=ON` `relay.local/MOMENTARY=OFF` | Will activate the relay for a brief moment, then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | [Garages, Gates](#alternative-scripts), Buzzers |
 | Modulation | `relay.local/MODULATION=ON` `relay.local/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights, Sprinkler systems |
 | State | `relay.local/status` | Will return a JSON with the current state | N/A |
-
-### Alternative scripts
-
-Furthermore, there are some more specialised scripts in the _Special Scripts_ folder. There, you can find a script designed specifically for more secure applications like Garage Door openers.
