@@ -9,16 +9,16 @@
 
 /////////////////// CHANGE THESE VALUES //////////////////////
 // Required:
-const char* ssid = "SSID"; //Name of your network
-const char* password = "PASSWORD"; //Password for your network
-const char* relay = "HIGH"; //Relay type (`HIGH` or `LOW`)
-const char* mdns = "relay"; //mDNS name
+const char* ssid = "SSID"; // Name of your network
+const char* password = "PASSWORD"; // Password for your network
+const String relay = "HIGH"; // Relay type (`HIGH` or `LOW`)
+const char* mdns = "relay"; // mDNS name
 // For Modulation:
-const uint32_t modulationOn = 5000; //Time (in ms) for relay to be ON when modulating
-const uint32_t modulationOff = 20000; //Time (in ms) for relay to be OFF when modulating
+const uint32_t modulationOn = 5000; // Time (in ms) for relay to be ON when modulating
+const uint32_t modulationOff = 20000; // Time (in ms) for relay to be OFF when modulating
 // For Momentary:
-const int momentaryOn = 1000; //Delay time (in ms) for the ON state for MOMENTARY
-const int momentaryOff = 1000; //Delay time (in ms) for the OFF state for MOMENTARY
+const int momentaryOn = 1000; // Delay time (in ms) for the ON state for MOMENTARY
+const int momentaryOff = 1000; // Delay time (in ms) for the OFF state for MOMENTARY
 //////////////////////////////////////////////////////////////
 
 const int relayPin = 13;
@@ -32,10 +32,7 @@ uint32_t last_toggle;
 WiFiServer server(80);
 
 void setup() {
-  Serial.begin(115200);
-  delay(10);
-
-  if (relay == "LOW") {
+  if (relay.equals("LOW")) {
     relayOn = 0;
     relayOff = 1;
   } else {
@@ -45,6 +42,9 @@ void setup() {
 
   pinMode(relayPin, OUTPUT);
   digitalWrite(relayPin, relayOff);
+
+  Serial.begin(115200);
+  delay(10);
 
   // Connect to WiFi network
   Serial.println();
