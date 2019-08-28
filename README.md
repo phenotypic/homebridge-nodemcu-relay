@@ -53,6 +53,6 @@ Here is a table which shows you the available relay actions included with the `N
 | Name | Full URLs | Description | Example Uses |
 | --- | --- | --- | --- |
 | Switch | `relay.local/SWITCH=ON` `relay.local/SWITCH=OFF` | Will simply turn on/off the relay permanently as per the Home app. | Lights, Faucets, Fans |
-| Momentary | `relay.local/MOMENTARY=ON` `relay.local/MOMENTARY=OFF` | Will activate the relay for a brief moment, then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | [Garages, Gates](#alternative-scripts), Buzzers |
+| Momentary | `relay.local/MOMENTARY=ON` `relay.local/MOMENTARY=OFF` | Will activate the relay for a brief moment, then deactivate after the amount of time specified in the `NodeMCU-Relay.ino` script. | Garages, Gates, Buzzers |
 | Modulation | `relay.local/MODULATION=ON` `relay.local/MODULATION=OFF` | Will activate then deactivate the relay constantly for the amount of time specified in the `NodeMCU-Relay.ino` script until turned off. | Lights, Sprinkler systems |
 | State | `relay.local/status` | Will return a JSON with the current state | N/A |
