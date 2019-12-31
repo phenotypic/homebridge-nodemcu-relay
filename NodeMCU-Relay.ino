@@ -184,7 +184,7 @@ void loop() {
   }
 
   if (request.indexOf("/status") != -1) {
-    client.println("{\"currentState\": " + String(state) + "}");
+    client.print(String(state));
   }
 
   delay(1);
