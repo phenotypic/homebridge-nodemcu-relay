@@ -58,4 +58,4 @@ Here is a table which shows you the available queries:
 | Switch | `/setState?type=switch` | Will simply turn on/off the relay permanently as per the Home app. | Lights, Faucets, Fans |
 | Momentary | `/setState?type=momentary` | Will activate the relay for a brief moment, then deactivate after the amount of time specified in the script. | Garages, Gates, Buzzers |
 | Modulation | `/setState?type=modulation` | Will activate then deactivate the relay constantly for the amount of time specified in the script until turned off. | Lights, Misting systems |
-| State | `/status` | Will return current state as `0` or `1` | N/A |
+| State | `/status` | Will return the `currentState` in JSON form as `0` or `1` | N/A |
