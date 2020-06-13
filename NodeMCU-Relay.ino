@@ -1,4 +1,6 @@
 #include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 
 // GitHub Page = https://github.com/Tommrodrigues/homebridge-nodemcu-relay
@@ -29,7 +31,7 @@ int relayOn, relayOff;
 bool led_blinking, led_on;
 uint32_t last_toggle;
 
-WiFiServer server(80);
+ESP8266WebServer server(80);
 
 void setup() {
   if (relay.equals("LOW")) {
@@ -62,9 +64,6 @@ void setup() {
   Serial.println();
   Serial.println("Connected successfully");
 
-  // Start the server
-  server.begin();
-
   // Print the IP address
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
@@ -73,6 +72,52 @@ void setup() {
     Serial.println("Error setting up MDNS responder!");
   }
   Serial.println("mDNS address: " + String(mdns) + ".local");
+
+  server.on("/setState", []() {
+    String type = server.arg("type");
+    state = server.arg("value").toInt();
+    if (relay.equals("modulation")) {
+      if (state) {
+        ignoreMe = false;
+        start_blinking();
+      } else {
+        ignoreMe = false;
+        stop_blinking();
+      }
+    }
+
+    if (relay.equals("momentary")) {
+      if (state) {
+        stop_blinking();
+        digitalWrite(relayPin, relayOn);
+        delay(momentaryOn);
+        digitalWrite(relayPin, relayOff);
+        ignoreMe = false;
+      } else {
+        stop_blinking();
+        digitalWrite(relayPin, relayOn);
+        delay(momentaryOff);
+        digitalWrite(relayPin, relayOff);
+        ignoreMe = false;
+      }
+    }
+
+    if (relay.equals("switch")) {
+      if (state) {
+        stop_blinking();
+        digitalWrite(relayPin, relayOn);
+        ignoreMe = true;
+      } else {
+        stop_blinking();
+        digitalWrite(relayPin, relayOff);
+        ignoreMe = false;
+      }
+    }
+    server.send(200);
+  });
+
+  // Start the server
+  server.begin();
 }
 
 //Start of modulation functions
@@ -112,82 +157,7 @@ void stop_blinking() {
 
 //Main loop
 void loop() {
-
   update_led();
-
+  server.handleClient();
   MDNS.update();
-
-  // Check if a client has connected
-  WiFiClient client = server.available();
-  if (!client) {
-    return;
-  }
-
-  // Wait until the client sends some data
-  Serial.println("New client");
-  while (!client.available()) {
-    delay(1);
-  }
-
-  // Read the first line of the request
-  String request = client.readStringUntil('\r');
-  Serial.println(request);
-  client.flush();
-
-  client.println("HTTP/1.1 200 OK");
-  client.println("Content-Type: text/html");
-  client.println("");
-
-  // Match the request
-  if (request.indexOf("/MODULATION=ON") != -1) {
-    ignoreMe = false;
-    start_blinking();
-    state = 1;
-  }
-
-  if (request.indexOf("/MODULATION=OFF") != -1) {
-    ignoreMe = false;
-    stop_blinking();
-    state = 0;
-  }
-
-  if (request.indexOf("/MOMENTARY=ON") != -1) {
-    stop_blinking();
-    digitalWrite(relayPin, relayOn);
-    delay(momentaryOn);
-    digitalWrite(relayPin, relayOff);
-    state = 1;
-    ignoreMe = false;
-  }
-
-  if (request.indexOf("/MOMENTARY=OFF") != -1) {
-    stop_blinking();
-    digitalWrite(relayPin, relayOn);
-    delay(momentaryOff);
-    digitalWrite(relayPin, relayOff);
-    state = 0;
-    ignoreMe = false;
-  }
-
-  if (request.indexOf("/SWITCH=ON") != -1) {
-    stop_blinking();
-    digitalWrite(relayPin, relayOn);
-    state = 1;
-    ignoreMe = true;
-  }
-
-  if (request.indexOf("/SWITCH=OFF") != -1) {
-    stop_blinking();
-    digitalWrite(relayPin, relayOff);
-    state = 0;
-    ignoreMe = false;
-  }
-
-  if (request.indexOf("/status") != -1) {
-    client.print(String(state));
-  }
-
-  delay(1);
-  Serial.println("Client disconnected");
-  Serial.println("");
 }
