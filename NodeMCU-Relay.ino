@@ -2,6 +2,7 @@
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
+#include <ArduinoJson.h>
 
 // GitHub Page = https://github.com/Tommrodrigues/homebridge-nodemcu-relay
 
@@ -114,6 +115,17 @@ void setup() {
       }
     }
     server.send(200);
+  });
+
+  server.on("/status", []() {
+    size_t capacity = JSON_OBJECT_SIZE(1);
+    DynamicJsonDocument doc(capacity);
+
+    doc["currentState"] = state;
+
+    String json;
+    serializeJson(doc, json);
+    server.send(200, "application/json", json);
   });
 
   // Start the server
