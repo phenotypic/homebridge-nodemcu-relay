@@ -77,7 +77,7 @@ void setup() {
   server.on("/setState", []() {
     String type = server.arg("type");
     state = server.arg("value").toInt();
-    if (relay.equals("modulation")) {
+    if (type.equals("modulation")) {
       if (state) {
         ignoreMe = false;
         start_blinking();
@@ -87,7 +87,7 @@ void setup() {
       }
     }
 
-    if (relay.equals("momentary")) {
+    if (type.equals("momentary")) {
       if (state) {
         stop_blinking();
         digitalWrite(relayPin, relayOn);
@@ -103,7 +103,7 @@ void setup() {
       }
     }
 
-    if (relay.equals("switch")) {
+    if (type.equals("switch")) {
       if (state) {
         stop_blinking();
         digitalWrite(relayPin, relayOn);
