@@ -4,8 +4,6 @@
 #include <ESP8266mDNS.h>
 #include <ArduinoJson.h>
 
-// Script Type = Relay Momentary, Switch, Modulation
-
 // D7 = Relay
 
 /////////////////// CHANGE THESE VALUES //////////////////////
