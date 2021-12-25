@@ -4,8 +4,6 @@
 #include <ESP8266mDNS.h>
 #include <ArduinoJson.h>
 
-// GitHub Page = https://github.com/phenotypic/homebridge-nodemcu-relay
-
 // Script Type = Relay Momentary, Switch, Modulation
 
 // D7 = Relay
