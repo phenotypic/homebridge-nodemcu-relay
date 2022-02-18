@@ -37,8 +37,11 @@ npm install -g homebridge-http
 
 ## Wiring
 
-![Diagram](https://i.ibb.co/Jrzr2Hm/68747470733a2f2f696d6167652e6962622e636f2f68454468464c2f576972696e672d52656c61792d4469616772616d2e6a7067.jpg)
-
+| NodeMCU | Relay Module |
+| --- | --- |
+| `3V3` | `VCC` |
+| `GND` | `GND` |
+| `D7` | `IN1` |
 
 ## Available Features
 
